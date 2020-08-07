@@ -81,6 +81,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  mock_data:
+    dependency: "direct main"
+    description:
+      name: mock_data
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.8"
   path:
     dependency: transitive
     description:

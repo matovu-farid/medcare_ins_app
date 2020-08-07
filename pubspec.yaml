@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  mock_data: ^1.2.8
   flutter:
     sdk: flutter
 
