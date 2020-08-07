@@ -11,7 +11,8 @@ UserProfile generateUserProfile(){
       dateOfBirth: generateDate(),
       occupation: _generateOccupation(),
       email: _generateEmail(),
-      bloodType: _generateBloodType()
+      bloodType: _generateBloodType(),
+      address: _generateAddress()
 
   );
 
@@ -28,4 +29,8 @@ String _generateEmail(){
 String _generateOccupation(){
   List<String> relationShips = ['engineer','plumber','electrician','accountant'];
   return relationShips[mockInteger(0,relationShips.length-1)];}
+  String _generateAddress(){
+  List<String> relationShips = ['Kampala','Mbale','Wakiso','Mbarara','Torroro'];
+  return relationShips[mockInteger(0,relationShips.length-1)];}
+
 

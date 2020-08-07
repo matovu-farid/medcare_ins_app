@@ -21,8 +21,8 @@ MedicalInfo generateMedicalInfo(){
     diagnosis:  _generateDiagnosis(),
     condition:  _generateCondition(),
     consultationFee: generateMoney(),
-    hospitalServices: generateMapStringInt(),
-    results: generateMapStringString(),
+    hospitalServices: generateMapStringInt(generateHospitalServices(),mockInteger()*7000),
+    results: generateMapStringString(generateResults()),
   );
   return medicalInfo;
 }
@@ -30,14 +30,14 @@ MedicalInfo generateMedicalInfo(){
 _generateDiagnosis() {
   List<String> relationShips = ['Cancer','Aids','Polio','Hepatitis','Syphilis'];
   var relationship = relationShips[mockInteger(0,relationShips.length-1)];
-  print(relationship);
+
   return relationship;
 }
 
 String _generateCondition() {
   List<String> relationShips = ['terminal','fatal','chronic','serious','minor'];
   var relationship = relationShips[mockInteger(0,relationShips.length-1)];
-  print(relationship);
+
   return relationship;
 
 }
@@ -67,30 +67,50 @@ int generateMoney(){
 String generateString(){
   return mockString(10,'a');
 }
-List<Map<String,int>>  generateMapStringInt(){
+List<Map<String,int>>  generateMapStringInt(String key,int value){
   List<Map<String,int>> mapList=[];
-  for(int i= 0; i < 10 ; i++){
-    Map<String,int> map = {generateString():generateMoney()};
+  for(int i= 0; i < 3 ; i++){
+    Map<String,int> map = {key:value};
     mapList.add(map);
   }
   return mapList;
 
 }
-List<Map<String,String>>  generateMapStringString(){
+String generateHospitalServices(){
+  List<String> relationShips = ['wound dressing','I&D','Blood tests','vaccination','antenatal','body dressing','treatment'];
+  var relationship = relationShips[mockInteger(0,relationShips.length-1)];
+
+  return relationship;
+}
+List<Map<String,String>>  generateMapStringString(Map<String,Map<String,String>> mapSent){
   List<Map<String,String>> mapList=[];
+  String mapKey = mapSent.keys.first;
   for(int i= 0; i < 10 ; i++){
-    Map<String,String> map = {generateString():generateString()};
+    Map<String,String> map = mapSent[mapKey];
     mapList.add(map);
   }
-  print(mapList);
+  mapList.add({'Result':mapKey});
   return mapList;
 
+}
+Map<String,String> genTests(){
+  var result = ['Negative','Positive'];
+  var test = ['Risus commodo','Quis ipsum suspendisse'];
+  mockInteger(0,1);
+  return {test[mockInteger(0,test.length-1)]:result[mockInteger(0,result.length-1)]};
+}
+Map<String,Map<String,String>> generateResults(){
+  var illness = ['malaria','Aids','Cholera','Typhoid','Whooping Cough'];
+return {illness[mockInteger(0,illness.length-1)]: genTests()};
 }
 String generateName(){
   return '${mockName()} ${mockName()}';
 }
-DateTime generateDate(){
-  return mockDate(DateTime(1980));
+String generateDate(){
+  var dateTime = mockDate(DateTime(1980));
+  String date = '${dateTime.day} / ${dateTime.month} / ${dateTime.year}';
+
+  return date;
 }
 
 
@@ -98,7 +118,7 @@ String _generateRelationShip(){
 
   List<String> relationShips = ['father','self','mother','sister','brother','uncle','aunt'];
   var relationship = relationShips[mockInteger(0,relationShips.length-1)];
-  print(relationship);
+
   return relationship;
 }
 String _generateIllness(){

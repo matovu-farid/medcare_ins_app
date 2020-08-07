@@ -8,6 +8,10 @@ class History{
 
   History({this.patientInfo, this.medicalInfo, this.clarification});
 
+  @override
+  String toString() {
+    return 'History{patientInfo: $patientInfo, medicalInfo: $medicalInfo, clarification: $clarification}';
+  }
 }
 
 class MedicalInfo {
@@ -21,6 +25,10 @@ class MedicalInfo {
   MedicalInfo({this.natureOfillness, this.diagnosis, this.condition,
       this.consultationFee, this.hospitalServices, this.results});
 
+  @override
+  String toString() {
+    return 'MedicalInfo{natureOfillness: $natureOfillness, diagnosis: $diagnosis, condition: $condition, consultationFee: $consultationFee, hospitalServices: $hospitalServices, results: $results}';
+  }
 }
 
 class Clarification {
@@ -29,7 +37,10 @@ class Clarification {
 
   Clarification({this.doctorsName, this.doctorsQualification});
 
-
+  @override
+  String toString() {
+    return 'Clarification{doctorsName: $doctorsName, doctorsQualification: $doctorsQualification}';
+  }
 }
 
 class PatientInfo {
@@ -37,11 +48,14 @@ class PatientInfo {
   final String relationship;
   final String medicalCardNo;
   final String gender;
-  final DateTime dateOfBirth;
+  final String dateOfBirth;
 
 
 
   PatientInfo({this.patientName, this.relationship, this.medicalCardNo, this.gender, this.dateOfBirth});
 
-
+  @override
+  String toString() {
+    return 'PatientInfo{patientName: $patientName, relationship: $relationship, medicalCardNo: $medicalCardNo, gender: $gender, dateOfBirth: $dateOfBirth}';
+  }
 }

@@ -19,6 +19,11 @@ class Benefits{
       this.treatmentForInPatientCare,
       this.mentalHealth,
       this.prescriptionDrugs});
+
+  @override
+  String toString() {
+    return 'Benefits{hospitalizationInsurance: $hospitalizationInsurance, tripsToEmergencyRoom: $tripsToEmergencyRoom, medicalEvacuation: $medicalEvacuation, emergencyDentalCare: $emergencyDentalCare, treatmentForInPatientCare: $treatmentForInPatientCare, mentalHealth: $mentalHealth, prescriptionDrugs: $prescriptionDrugs}';
+  }
 }
 String coverageToString(Coverage coverage){
   return (coverage == Coverage.Covered) ? 'Covered' : 'Assistance only';

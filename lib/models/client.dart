@@ -9,4 +9,8 @@ class Client{
 
   Client({this.benefits,  this.history, this.userProfile});
 
+  @override
+  String toString() {
+    return 'Client{benefits: $benefits, history: $history, userProfile: $userProfile}';
+  }
 }
