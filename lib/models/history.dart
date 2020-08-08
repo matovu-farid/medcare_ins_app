@@ -1,12 +1,24 @@
 
 
 
+import 'package:medicalApp/gloabal_functions/genHistory.dart';
+import 'package:medicalApp/models/user_profile.dart';
+
 class History{
   final PatientInfo patientInfo;
   final MedicalInfo medicalInfo;
   final Clarification clarification;
+   String iconPath;
+  final String hospitalName;
+  final String hospitalLocation;
+  String date;
+  String sum;
 
-  History({this.patientInfo, this.medicalInfo, this.clarification});
+  History( {this.hospitalLocation,this.hospitalName,this.patientInfo, this.medicalInfo, this.clarification})
+      :this.iconPath = createImagePath(),
+  this.date = generateLastSeen(),
+  this.sum = "${medicalInfo.hospitalServices.last['sum']},000"
+  ;
 
   @override
   String toString() {
@@ -21,8 +33,11 @@ class MedicalInfo {
   final int consultationFee;
   final List<Map<String,int>> hospitalServices;
   final List<Map<String,String>> results;
+  final List<Map<String,int>> drugsPrescribed;
 
-  MedicalInfo({this.natureOfillness, this.diagnosis, this.condition,
+
+
+  MedicalInfo({this.drugsPrescribed,this.natureOfillness, this.diagnosis, this.condition,
       this.consultationFee, this.hospitalServices, this.results});
 
   @override
@@ -56,6 +71,6 @@ class PatientInfo {
 
   @override
   String toString() {
-    return 'PatientInfo{patientName: $patientName, relationship: $relationship, medicalCardNo: $medicalCardNo, gender: $gender, dateOfBirth: $dateOfBirth}';
+    return 'patientName: $patientName\n relationship: $relationship\n medicalCardNo: $medicalCardNo\n gender: $gender\n dateOfBirth: $dateOfBirth';
   }
 }

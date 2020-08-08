@@ -5,24 +5,43 @@ import 'package:mock_data/mock_data.dart';
 History generateHistory(){
 
   History history = History(
-      patientInfo: generatePatentInfo(),
-      medicalInfo: generateMedicalInfo(),
-      clarification: gererateClarification());
+      patientInfo: _generatePatentInfo(),
+      medicalInfo: _generateMedicalInfo(),
+      clarification: _gererateClarification(),
+    hospitalName: generateHospitalName(),
+    hospitalLocation: generatelocation(),
+
+  );
 
   return history;
 
 }
 
+String generatelocation() {
+  List<String> relationShips = ['Kampala','Wakiso','Mbarara','Kitgum','Lira','Apach','Nebi','Teso','Mbale','Masaka'];
+  var relationship = relationShips[mockInteger(0,relationShips.length-1)];
 
-MedicalInfo generateMedicalInfo(){
+  return relationship;
+}
+
+String generateHospitalName() {
+  List<String> relationShips = ['IAA HealthServices','AAR HealthServices','Case Hospital','Mulago Hospital','LifeLink Hospital'];
+  var relationship = relationShips[mockInteger(0,relationShips.length-1)];
+
+  return relationship;
+}
+
+
+MedicalInfo _generateMedicalInfo(){
 
   MedicalInfo medicalInfo = MedicalInfo(
     natureOfillness: _generateIllness(),
     diagnosis:  _generateDiagnosis(),
     condition:  _generateCondition(),
     consultationFee: generateMoney(),
-    hospitalServices: generateMapStringInt(generateHospitalServices(),mockInteger()*7000),
-    results: generateMapStringString(generateResults()),
+    hospitalServices: generateMapStringInt(generateHospitalServices),
+    results: generateMapStringString(generateResults),
+    drugsPrescribed:generateMapStringInt(generateDrugsPrescribed),
   );
   return medicalInfo;
 }
@@ -42,7 +61,7 @@ String _generateCondition() {
 
 }
 
-PatientInfo generatePatentInfo(){
+PatientInfo _generatePatentInfo(){
   PatientInfo patientInfo = PatientInfo(
     patientName: generateName(),
     relationship: _generateRelationShip(),
@@ -53,7 +72,7 @@ PatientInfo generatePatentInfo(){
   return patientInfo;
 
 }
-Clarification gererateClarification(){
+Clarification _gererateClarification(){
   Clarification clarification = Clarification(
     doctorsName: generateName(),
     doctorsQualification: _generateQualiification(),
@@ -67,12 +86,17 @@ int generateMoney(){
 String generateString(){
   return mockString(10,'a');
 }
-List<Map<String,int>>  generateMapStringInt(String key,int value){
+List<Map<String,int>>  generateMapStringInt(Function key){
   List<Map<String,int>> mapList=[];
+  int sum = 0;
   for(int i= 0; i < 3 ; i++){
-    Map<String,int> map = {key:value};
+    int money = mockInteger()*7;
+    sum += money;
+    Map<String,int> map = {key():money};
     mapList.add(map);
   }
+  mapList.add({'sum':sum});
+
   return mapList;
 
 }
@@ -82,11 +106,20 @@ String generateHospitalServices(){
 
   return relationship;
 }
-List<Map<String,String>>  generateMapStringString(Map<String,Map<String,String>> mapSent){
+String generateDrugsPrescribed(){
+  List<String> relationShips = ['Panadol','Arv\'s','Coacetamol','Cetamol','Paracetamol','Vitamin C','Amoxil'];
+  var relationship = relationShips[mockInteger(0,relationShips.length-1)];
+
+  return relationship;
+}
+
+List<Map<String,String>>  generateMapStringString(Function mapSent){
   List<Map<String,String>> mapList=[];
-  String mapKey = mapSent.keys.first;
-  for(int i= 0; i < 10 ; i++){
-    Map<String,String> map = mapSent[mapKey];
+String mapKey;
+  for(int i= 0; i < 2 ; i++){
+    var mapGot = mapSent();
+     mapKey = mapGot.keys.first;
+    Map<String,String> map = mapGot[mapKey];
     mapList.add(map);
   }
   mapList.add({'Result':mapKey});
@@ -109,6 +142,15 @@ String generateName(){
 String generateDate(){
   var dateTime = mockDate(DateTime(1980));
   String date = '${dateTime.day} / ${dateTime.month} / ${dateTime.year}';
+
+  return date;
+}
+var month = [
+  'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
+];
+String generateLastSeen(){
+  var dateTime = mockDate(DateTime(2020));
+  String date = '${dateTime.day} ${month[dateTime.month]} ';
 
   return date;
 }

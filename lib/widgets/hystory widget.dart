@@ -9,14 +9,14 @@ import 'package:mock_data/mock_data.dart';
 Image createImage(BuildContext context,Client client) {
   return Image(
 //      image: AssetImage('images/profile_images/${mockInteger(1, 9)}.jpg'));
-  image: AssetImage(client.userProfile.imagePath));
+      image: AssetImage(client.history.iconPath));
 }
-class UserListView extends StatefulWidget {
+class HistoryListView extends StatefulWidget {
   @override
-  _UserListViewState createState() => _UserListViewState();
+  _HistoryListViewState createState() => _HistoryListViewState();
 }
 
-class _UserListViewState extends State<UserListView> {
+class _HistoryListViewState extends State<HistoryListView> {
   List<Client> clientList = generateClientList();
 
 
@@ -29,6 +29,12 @@ class _UserListViewState extends State<UserListView> {
   }
   //Future future ()async=> await Future.delayed(Duration(milliseconds: 1));
 
+  tapHeart(Client client){
+    setState(() {
+      if(client.userProfile.likability=='DisLike')client.userProfile.likability='Like';
+      else client.userProfile.likability='DisLike';
+    });
+  }
 
 
 
@@ -48,9 +54,20 @@ class _UserListViewState extends State<UserListView> {
               ),
             ),
             child: ListTile(
-
-              title: Text(' ${clientList[index].userProfile.name}'),
-              subtitle: Text('${clientList[index].userProfile.company}.'),
+              trailing: SizedBox(
+                width: 200,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ListTile(
+                    title: Text('${clientList[index].history.sum} UGX'),
+                    subtitle: Text(clientList[index].history.date),
+                  ),
+                ),
+              ),
+              focusColor: Colors.blue,
+              hoverColor: Colors.green,
+              title: Text(' ${clientList[index].history.hospitalName}'),
+              subtitle: Text('${clientList[index].history.hospitalLocation}.'),
               leading: DefaultAssetBundle(
                   bundle: DefaultAssetBundle.of(context),
                   child: createImage(context,clientList[index])),
