@@ -9,8 +9,9 @@ class UserProfile{
   final String bloodType;
   final String email;
   final String address;
+  final String name;
 
-  UserProfile({this.company, this.occupation, this.gender, this.dateOfBirth, this.bloodType, this.email, this.address});
+  UserProfile( {this.name,this.company, this.occupation, this.gender, this.dateOfBirth, this.bloodType, this.email, this.address});
 
   @override
   String toString() {

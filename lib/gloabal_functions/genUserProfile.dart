@@ -12,11 +12,16 @@ UserProfile generateUserProfile(){
       occupation: _generateOccupation(),
       email: _generateEmail(),
       bloodType: _generateBloodType(),
-      address: _generateAddress()
+      address: _generateAddress(),
+    name: generateName(),
+    company: _generateCompany()
 
   );
 
 }
+String _generateCompany(){
+  List<String> relationShips = ['Jubilee Life Insuraance','AAR Health Services','None','Case MedCare','IAA Heath Care','Life Link'];
+  return relationShips[mockInteger(0,relationShips.length-1)];}
 String _generateGender(){
   List<String> relationShips = ['male','female'];
   return relationShips[mockInteger(0,relationShips.length-1)];}
