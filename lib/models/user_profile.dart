@@ -19,14 +19,15 @@ class UserProfile {
   String imagePath;
   final String regDate;
   final String holderStatus;
+  final String phoneNumber;
 
   UserProfile(
-      {
-        this.holderStatus,
-        this.regDate,
+      {this.holderStatus,
+      this.regDate,
       this.likability = 'Dislike',
       this.name,
       this.company,
+      this.phoneNumber,
       this.occupation,
       this.gender,
       this.dateOfBirth,
@@ -38,5 +39,17 @@ class UserProfile {
   @override
   String toString() {
     return 'UserProfile{company: $company, occupation: $occupation, gender: $gender, dateOfBirth: $dateOfBirth, bloodType: $bloodType, email: $email, address: $address}';
+  }
+
+  List<Map<String, String>> toList() {
+    return [
+      {'Company': company},
+      {'Occupation': occupation},
+      {'Phone number': phoneNumber},
+      {'DOB': dateOfBirth},
+      {'BloodType': bloodType},
+      {'Email': email},
+      {'Address': address},
+    ];
   }
 }

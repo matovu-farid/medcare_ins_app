@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medicalApp/gloabal_functions/genClient.dart';
 import 'package:medicalApp/models/client.dart';
 
-import 'history_details_heading.dart';
+import 'components/history_details_heading.dart';
 class BenefitsListView extends StatelessWidget {
   Client client = generateClientList()[0];
 
@@ -11,10 +11,13 @@ class BenefitsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
       children: [
         Heading('Benefits'),
         ListView.builder(
+          physics: ClampingScrollPhysics(),
           shrinkWrap: true,
           itemCount: listOfBenefits().length,
           itemBuilder: (_, index) {

@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:medicalApp/widgets/userOptions/option.dart';
 
-class HistoryButton extends StatelessWidget {
-  const HistoryButton({
+class HistoryButton extends Options {
+  HistoryButton({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-
-      child: Row(
-        children: [
-          const Icon(LineAwesomeIcons.history),
-          const Text('History'),
-        ],
-        mainAxisSize: MainAxisSize.min,
-      ),
-      onPressed: () { /* ... */ },
+    return Tab(
+      icon: const Icon(LineAwesomeIcons.history),
+      text: 'History',
     );
   }
 }

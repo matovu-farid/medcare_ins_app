@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:medicalApp/gloabal_functions/genClient.dart';
 import 'package:medicalApp/models/client.dart';
 
-import 'history_details_heading.dart';
+import 'components/history_details_heading.dart';
+
 
 class HistoryDetails extends StatelessWidget {
   final Client client = generateClientList()[0];

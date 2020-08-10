@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:medicalApp/widgets/userOptions/option.dart';
 
-class CardButton extends StatelessWidget {
-  const CardButton({
+class CardButton extends Options {
+  CardButton({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-
-      child: Row(
-        children: [
-          const Icon(LineAwesomeIcons.cardboard_vr),
-          const Text('Card'),
-        ],
-        mainAxisSize: MainAxisSize.min,
-      ),
-      onPressed: () { /* ... */ },
+    return Tab(
+      icon: const Icon(LineAwesomeIcons.cardboard_vr),
+      text: 'Card',
     );
   }
 }
