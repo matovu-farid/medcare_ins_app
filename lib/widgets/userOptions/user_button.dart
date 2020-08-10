@@ -11,7 +11,7 @@ class ProfileButton extends Options {
   Widget build(BuildContext context) {
     return Tab(
       icon: const Icon(LineAwesomeIcons.user_1),
-      text: 'User Profile',
+      text: 'Profile',
     );
   }
 }

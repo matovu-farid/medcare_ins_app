@@ -14,7 +14,10 @@ import 'package:medicalApp/widgets/userOptions/user_button.dart';
 
 
 class UserCard extends StatefulWidget {
-  Client client = generateClientList()[0];
+  final Client client;
+  final List<Client> clientList;
+
+  UserCard(this.client,this.clientList);
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -61,52 +64,64 @@ class _UserCardState extends State<UserCard>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(icon: Icon(LineAwesomeIcons.edit)),
-                IconButton(
-                  icon: Icon(LineAwesomeIcons.trash),
-                ),
-              ],
+          SizedBox(
+            width: 400,
+            child: ListTile(
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(icon: Icon(LineAwesomeIcons.edit)),
+                  IconButton(
+                    icon: Icon(LineAwesomeIcons.trash),
+                  ),
+                ],
+              ),
+              isThreeLine: true,
+              title: Text(' ${widget.client.userProfile.name}'),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('${widget.client.userProfile.company}.'),
+                  Text(
+                    '${widget.client.userProfile.holderStatus}.',
+                    style: setTextStyle(),
+                  ),
+                ],
+              ),
+              leading: createImage(context, widget.client),
             ),
-            isThreeLine: true,
-            title: Text(' ${widget.client.userProfile.name}'),
-            subtitle: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('${widget.client.userProfile.company}.'),
-                Text(
-                  '${widget.client.userProfile.holderStatus}.',
-                  style: setTextStyle(),
-                ),
-              ],
-            ),
-            leading: createImage(context, widget.client),
           ),
           Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Reg Date : ${widget.client.userProfile.regDate}',
-                style: TextStyle(color: Colors.grey),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  'Reg Date : ${widget.client.userProfile.regDate}',
+                  style: TextStyle(color: Colors.grey),
+                ),
               )),
-          TabBar(
-            tabs: tabs,
-            controller: _tabController,
-            labelColor: Colors.blue,
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth:400,),
+            child: TabBar(
+
+              tabs: tabs,
+              controller: _tabController,
+              labelColor: Colors.blue,
+            ),
           ),
           ConstrainedBox(
             constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.5),
+                maxHeight: MediaQuery.of(context).size.height * 0.5,maxWidth:400,),
+
             child: TabBarView(
               controller: _tabController,
               children: [
-                UserDetails(),
-                BenefitsListView(),
-                CardListView(),
-                HistoryListView(),
+                UserDetails(widget.client),
+                BenefitsListView(widget.client),
+                CardListView(widget.client),
+                HistoryListView(widget.clientList),
               ],
             ),
           ),

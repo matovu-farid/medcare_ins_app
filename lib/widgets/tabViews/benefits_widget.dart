@@ -4,7 +4,9 @@ import 'package:medicalApp/models/client.dart';
 
 import 'components/history_details_heading.dart';
 class BenefitsListView extends StatelessWidget {
-  Client client = generateClientList()[0];
+  Client client;
+
+  BenefitsListView(this.client);
 
   List<Map<String, dynamic>> listOfBenefits() =>
       client.benefits.toList();

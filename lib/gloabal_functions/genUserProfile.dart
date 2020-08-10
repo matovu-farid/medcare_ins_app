@@ -16,10 +16,15 @@ UserProfile generateUserProfile(){
       address: _generateAddress(),
     name: generateName(),
     company: _generateCompany(),
-    holderStatus: _generateHolderStatus()
+    holderStatus: _generateHolderStatus(),
+    phoneNumber: _generatePhoneNumber()
 
 
   );
+
+}
+String _generatePhoneNumber(){
+  return '070${mockInteger(1000000,9999999)}';
 
 }
 String _generateCompany(){

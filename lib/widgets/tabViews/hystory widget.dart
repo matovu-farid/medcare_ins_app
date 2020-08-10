@@ -12,12 +12,16 @@ Image createImage(BuildContext context,Client client) {
       image: AssetImage(client.history.iconPath));
 }
 class HistoryListView extends StatefulWidget {
+  final List<Client> clientList;
   @override
   _HistoryListViewState createState() => _HistoryListViewState();
+
+  HistoryListView(this.clientList);
 }
 
 class _HistoryListViewState extends State<HistoryListView> {
-  List<Client> clientList = generateClientList();
+  List<Client> get clientList => widget.clientList;
+
 
 
 
