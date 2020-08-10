@@ -40,11 +40,13 @@ class _UserListViewState extends State<UserListView> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            width: 400,
-
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 400,
+              maxHeight: MediaQuery.of(context).size.height
+            ),
             child: ListView.separated(
-              shrinkWrap: true,
+
                 separatorBuilder: (BuildContext context, int index) => Divider(
                   thickness: 3,
                 ),

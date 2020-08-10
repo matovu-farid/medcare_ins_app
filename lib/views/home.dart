@@ -5,6 +5,7 @@ import 'package:medicalApp/models/client.dart';
 import 'file:///C:/Users/Sarah/Desktop/medcareInsApp/medicalApp/lib/widgets/tabViews/history_details.dart';
 import 'package:medicalApp/widgets/user_card.dart';
 import 'package:medicalApp/widgets/user_tile.dart';
+import 'package:medicalApp/widgets/vertical_tabBar.dart';
 
 
 import 'package:mock_data/mock_data.dart';
@@ -24,10 +25,8 @@ class _HomeState extends State<Home> {
         title: Text("MedCare"),
       ),
       body: Container(
-        padding: EdgeInsets.all(32.0),
-        child: Center(
-          child: UserListView(),
-        ),
+        
+        child: VerticalTabBar(),
       ),
     );
   }
