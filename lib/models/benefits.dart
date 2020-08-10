@@ -1,8 +1,6 @@
-enum Coverage{
-  AssistanceOnly,
-  Covered
-}
-class Benefits{
+enum Coverage { AssistanceOnly, Covered }
+
+class Benefits {
   final int hospitalizationInsurance;
   final Coverage tripsToEmergencyRoom;
   final int medicalEvacuation;
@@ -24,8 +22,21 @@ class Benefits{
   String toString() {
     return 'Benefits{hospitalizationInsurance: $hospitalizationInsurance, tripsToEmergencyRoom: $tripsToEmergencyRoom, medicalEvacuation: $medicalEvacuation, emergencyDentalCare: $emergencyDentalCare, treatmentForInPatientCare: $treatmentForInPatientCare, mentalHealth: $mentalHealth, prescriptionDrugs: $prescriptionDrugs}';
   }
-}
-String coverageToString(Coverage coverage){
-  return (coverage == Coverage.Covered) ? 'Covered' : 'Assistance only';
 
+  List<Map<String, dynamic>> toList() {
+    return [
+      {'Hospitalization Insurance': hospitalizationInsurance},
+      {'Trips To EmergencyRoom': tripsToEmergencyRoom},
+      {'Medical Evacuation': medicalEvacuation},
+      {'Emergency DentalCare': emergencyDentalCare},
+      {'Treatment For InPatientCare': treatmentForInPatientCare},
+      {'MentalHealth': mentalHealth},
+      {'PrescriptionDrugs': prescriptionDrugs},
+
+    ];
+  }
+}
+
+String coverageToString(Coverage coverage) {
+  return (coverage == Coverage.Covered) ? 'Covered' : 'Assistance only';
 }

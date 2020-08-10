@@ -24,6 +24,7 @@ class History{
   String toString() {
     return 'History{patientInfo: $patientInfo, medicalInfo: $medicalInfo, clarification: $clarification}';
   }
+
 }
 
 class MedicalInfo {
@@ -56,6 +57,12 @@ class Clarification {
   String toString() {
     return 'Clarification{doctorsName: $doctorsName, doctorsQualification: $doctorsQualification}';
   }
+  List<Map<String,String>> toList(){
+    return [
+      {'Doctor\'s Name':doctorsName},
+      {'Doctor\'s Qualification':doctorsQualification}
+    ];
+  }
 }
 
 class PatientInfo {
@@ -72,5 +79,14 @@ class PatientInfo {
   @override
   String toString() {
     return 'patientName: $patientName\n relationship: $relationship\n medicalCardNo: $medicalCardNo\n gender: $gender\n dateOfBirth: $dateOfBirth';
+  }
+  List<Map<String,String>> toList(){
+    return [
+      {'Patient Name ':patientName},
+      {'Relationship ':relationship},
+      {'Medical CardNo ':medicalCardNo},
+      {'Gender ':gender},
+      {'DOB ':dateOfBirth}
+    ];
   }
 }

@@ -139,12 +139,16 @@ return {illness[mockInteger(0,illness.length-1)]: genTests()};
 String generateName(){
   return '${mockName()} ${mockName()}';
 }
+
 String generateDate(){
   var dateTime = mockDate(DateTime(1980));
-  String date = '${dateTime.day} / ${dateTime.month} / ${dateTime.year}';
+
+  String date = '${dateTime.day}/${dateTime.month}/${dateTime.year}';
 
   return date;
 }
+
+
 var month = [
   'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
 ];

@@ -1,14 +1,12 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/gloabal_functions/genClient.dart';
 import 'package:medicalApp/models/client.dart';
-import 'package:mock_data/mock_data.dart';
+
 
 Image createImage(BuildContext context,Client client) {
   return Image(
-//      image: AssetImage('images/profile_images/${mockInteger(1, 9)}.jpg'));
+
   image: AssetImage(client.userProfile.imagePath));
 }
 class UserListView extends StatefulWidget {
@@ -27,7 +25,6 @@ class _UserListViewState extends State<UserListView> {
     }
     else return Colors.red;
   }
-  //Future future ()async=> await Future.delayed(Duration(milliseconds: 1));
 
 
 

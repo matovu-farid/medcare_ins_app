@@ -7,14 +7,17 @@ import 'genHistory.dart';
 
 UserProfile generateUserProfile(){
   return UserProfile(
+    regDate: _generateDate(),
       gender: _generateGender(),
-      dateOfBirth: generateDate(),
+      dateOfBirth: _generateDate(),
       occupation: _generateOccupation(),
       email: _generateEmail(),
       bloodType: _generateBloodType(),
       address: _generateAddress(),
     name: generateName(),
-    company: _generateCompany()
+    company: _generateCompany(),
+    holderStatus: _generateHolderStatus()
+
 
   );
 
@@ -25,6 +28,10 @@ String _generateCompany(){
 String _generateGender(){
   List<String> relationShips = ['male','female'];
   return relationShips[mockInteger(0,relationShips.length-1)];}
+  String _generateHolderStatus(){
+  List<String> relationShips = ['Card Holder','Non Card Holder'];
+  return relationShips[mockInteger(0,relationShips.length-1)];}
+
 String _generateBloodType(){
   List<String> relationShips = ['A+','B+','AOB','O+','O-','A-','B-'];
   return relationShips[mockInteger(0,relationShips.length-1)];}
@@ -37,5 +44,14 @@ String _generateOccupation(){
   String _generateAddress(){
   List<String> relationShips = ['Kampala','Mbale','Wakiso','Mbarara','Torroro'];
   return relationShips[mockInteger(0,relationShips.length-1)];}
+
+String _generateDate(){
+  var dateTime = mockDate(DateTime(1980));
+
+  String date = '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+
+  return date;
+}
+
 
 

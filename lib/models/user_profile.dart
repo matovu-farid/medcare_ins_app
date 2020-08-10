@@ -17,9 +17,13 @@ class UserProfile {
   final String name;
   String likability;
   String imagePath;
+  final String regDate;
+  final String holderStatus;
 
   UserProfile(
       {
+        this.holderStatus,
+        this.regDate,
       this.likability = 'Dislike',
       this.name,
       this.company,
@@ -28,7 +32,8 @@ class UserProfile {
       this.dateOfBirth,
       this.bloodType,
       this.email,
-      this.address}):this.imagePath = createImagePath();
+      this.address})
+      : this.imagePath = createImagePath();
 
   @override
   String toString() {
