@@ -1,7 +1,9 @@
-import 'package:medicalApp/gloabal_functions/genBenefits.dart';
-import 'package:medicalApp/gloabal_functions/genHistory.dart';
-import 'package:medicalApp/gloabal_functions/genUserProfile.dart';
-import 'package:medicalApp/models/client.dart';
+import 'package:medicalApp/models/clients/client.dart';
+
+import 'genBenefits.dart';
+import 'genHistory.dart';
+import 'genUserProfile.dart';
+
 
 
 Client genClient(){

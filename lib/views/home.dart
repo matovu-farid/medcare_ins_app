@@ -1,18 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:medicalApp/models/client.dart';
-import 'file:///C:/Users/Sarah/Desktop/medcareInsApp/medicalApp/lib/widgets/tabViews/history_details.dart';
-import 'package:medicalApp/widgets/user_card.dart';
-import 'package:medicalApp/widgets/user_tile.dart';
 import 'package:medicalApp/widgets/vertical_tabBar.dart';
 
-
-import 'package:mock_data/mock_data.dart';
-
 class Home extends StatefulWidget {
-
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -20,13 +11,20 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("MedCare"),
+    return Theme(
+      data: Theme.of(context).copyWith(
+          accentColor: Colors.yellow,
+          primaryColor: Colors.green,
+
       ),
-      body: Container(
-        
-        child: VerticalTabBar(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("MedCare"),
+        ),
+        body: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: FittedBox(child: VerticalTabBar())),
       ),
     );
   }

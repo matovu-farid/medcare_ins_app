@@ -1,30 +1,34 @@
+import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
+import 'package:mock_data/mock_data.dart';
 
+String createImagePath() {
+  return 'images/hospital_pics/${mockInteger(1, 10)}.png';
+}
 
-
-import 'package:medicalApp/gloabal_functions/genHistory.dart';
-import 'package:medicalApp/models/user_profile.dart';
-
-class History{
+class History {
   final PatientInfo patientInfo;
   final MedicalInfo medicalInfo;
   final Clarification clarification;
-   String iconPath;
+  String iconPath;
   final String hospitalName;
   final String hospitalLocation;
   String date;
   String sum;
 
-  History( {this.hospitalLocation,this.hospitalName,this.patientInfo, this.medicalInfo, this.clarification})
-      :this.iconPath = createImagePath(),
-  this.date = generateLastSeen(),
-  this.sum = "${medicalInfo.hospitalServices.last['sum']},000"
-  ;
+  History(
+      {this.hospitalLocation,
+      this.hospitalName,
+      this.patientInfo,
+      this.medicalInfo,
+      this.clarification})
+      : this.iconPath = createImagePath(),
+        this.date = generateLastSeen(),
+        this.sum = "${medicalInfo.hospitalServices.last['sum']},000";
 
   @override
   String toString() {
     return 'History{patientInfo: $patientInfo, medicalInfo: $medicalInfo, clarification: $clarification}';
   }
-
 }
 
 class MedicalInfo {
@@ -32,14 +36,18 @@ class MedicalInfo {
   final String diagnosis;
   final String condition;
   final int consultationFee;
-  final List<Map<String,int>> hospitalServices;
-  final List<Map<String,String>> results;
-  final List<Map<String,int>> drugsPrescribed;
+  final List<Map<String, int>> hospitalServices;
+  final List<Map<String, String>> results;
+  final List<Map<String, int>> drugsPrescribed;
 
-
-
-  MedicalInfo({this.drugsPrescribed,this.natureOfillness, this.diagnosis, this.condition,
-      this.consultationFee, this.hospitalServices, this.results});
+  MedicalInfo(
+      {this.drugsPrescribed,
+      this.natureOfillness,
+      this.diagnosis,
+      this.condition,
+      this.consultationFee,
+      this.hospitalServices,
+      this.results});
 
   @override
   String toString() {
@@ -57,10 +65,11 @@ class Clarification {
   String toString() {
     return 'Clarification{doctorsName: $doctorsName, doctorsQualification: $doctorsQualification}';
   }
-  List<Map<String,String>> toList(){
+
+  List<Map<String, String>> toList() {
     return [
-      {'Doctor\'s Name':doctorsName},
-      {'Doctor\'s Qualification':doctorsQualification}
+      {'Doctor\'s Name': doctorsName},
+      {'Doctor\'s Qualification': doctorsQualification}
     ];
   }
 }
@@ -72,21 +81,25 @@ class PatientInfo {
   final String gender;
   final String dateOfBirth;
 
-
-
-  PatientInfo({this.patientName, this.relationship, this.medicalCardNo, this.gender, this.dateOfBirth});
+  PatientInfo(
+      {this.patientName,
+      this.relationship,
+      this.medicalCardNo,
+      this.gender,
+      this.dateOfBirth});
 
   @override
   String toString() {
     return 'patientName: $patientName\n relationship: $relationship\n medicalCardNo: $medicalCardNo\n gender: $gender\n dateOfBirth: $dateOfBirth';
   }
-  List<Map<String,String>> toList(){
+
+  List<Map<String, String>> toList() {
     return [
-      {'Patient Name ':patientName},
-      {'Relationship ':relationship},
-      {'Medical CardNo ':medicalCardNo},
-      {'Gender ':gender},
-      {'DOB ':dateOfBirth}
+      {'Patient Name ': patientName},
+      {'Relationship ': relationship},
+      {'Medical CardNo ': medicalCardNo},
+      {'Gender ': gender},
+      {'DOB ': dateOfBirth}
     ];
   }
 }

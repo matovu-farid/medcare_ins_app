@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'file:///C:/Users/Sarah/Desktop/medcareInsApp/medicalApp/lib/widgets/tabViews/benefits_widget.dart';
 import 'package:medicalApp/widgets/userOptions/option.dart';
 
 class BenefitsButton extends Options {

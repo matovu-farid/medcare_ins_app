@@ -1,4 +1,4 @@
-import 'package:medicalApp/models/benefits.dart';
+import 'package:medicalApp/models/clients/benefits.dart';
 import 'package:mock_data/mock_data.dart';
 
 Benefits generateBenefits(){

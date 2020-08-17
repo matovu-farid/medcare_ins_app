@@ -1,5 +1,5 @@
 
-import 'package:medicalApp/models/history.dart';
+import 'package:medicalApp/models/clients/history.dart';
 import 'package:mock_data/mock_data.dart';
 
 History generateHistory(){

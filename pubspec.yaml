@@ -21,8 +21,14 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  printing: ^3.6.0
+  pdf: ^1.10.1
+  path_provider: ^1.6.11
+  rxdart: ^0.24.1
+  scoped_model: ^1.0.1
   mock_data: ^1.2.8
   vertical_tabs: ^0.2.0
+  native_pdf_view: any
   flutter:
     sdk: flutter
   line_awesome_flutter: any
@@ -52,7 +58,7 @@ flutter:
 
 
   assets:
-    - assets/images/profile_images/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

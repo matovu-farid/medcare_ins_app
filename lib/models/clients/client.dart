@@ -1,6 +1,8 @@
-import 'package:medicalApp/models/benefits.dart';
-import 'package:medicalApp/models/history.dart';
-import 'package:medicalApp/models/user_profile.dart';
+
+
+import 'package:medicalApp/models/clients/benefits.dart';
+import 'package:medicalApp/models/clients/history.dart';
+import 'package:medicalApp/models/clients/user_profile.dart';
 
 class Client{
   final Benefits benefits;

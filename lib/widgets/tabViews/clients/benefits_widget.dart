@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:medicalApp/gloabal_functions/genClient.dart';
-import 'package:medicalApp/models/client.dart';
+import 'package:medicalApp/models/clients/client.dart';
 
 import 'components/history_details_heading.dart';
+
 class BenefitsListView extends StatelessWidget {
-  Client client;
+  final Client client;
 
   BenefitsListView(this.client);
 

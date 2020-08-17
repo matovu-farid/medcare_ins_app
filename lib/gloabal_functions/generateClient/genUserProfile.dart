@@ -1,6 +1,6 @@
 
 
-import 'package:medicalApp/models/user_profile.dart';
+import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:mock_data/mock_data.dart';
 
 import 'genHistory.dart';
