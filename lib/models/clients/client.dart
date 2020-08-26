@@ -1,18 +1,20 @@
 
 
+import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:medicalApp/models/clients/benefits.dart';
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/models/clients/user_profile.dart';
 
-class Client{
+class Clients{
   final Benefits benefits;
-  final History history;
+  final List<History> historyList;
   final UserProfile userProfile;
 
-  Client({this.benefits,  this.history, this.userProfile});
+
+  Clients({this.benefits,  this.historyList, this.userProfile});
 
   @override
   String toString() {
-    return 'Client{benefits: $benefits, history: $history, userProfile: $userProfile}';
+    return 'Client{benefits: $benefits, history: $historyList, userProfile: $userProfile}';
   }
 }

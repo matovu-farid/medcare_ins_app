@@ -11,17 +11,19 @@ class CircleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 0.8,
-      heightFactor: 0.8,
-      child: Card(
-        elevation: 2,
-        child: CustomPaint(
-          painter: CircularWidget(),
-          child: FractionallySizedBox(
-            widthFactor: 0.5,
-            heightFactor: 0.5,
-            child: Center(child: Text(text)),
+    return Card(
+      elevation: 2,
+      child: SizedBox(
+        width: 150,
+        height: 150,
+        child: FittedBox(
+          child: CustomPaint(
+            painter: CircularWidget(),
+            child: SizedBox(
+              width: 100,
+              height: 100,
+              child: Center(child: Text(text)),
+            ),
           ),
         ),
       ),

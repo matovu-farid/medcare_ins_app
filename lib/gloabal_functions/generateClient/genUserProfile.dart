@@ -1,5 +1,6 @@
 
 
+import 'package:medicalApp/gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:mock_data/mock_data.dart';
 
@@ -15,7 +16,7 @@ UserProfile generateUserProfile(){
       bloodType: _generateBloodType(),
       address: _generateAddress(),
     name: generateName(),
-    company: _generateCompany(),
+    company: genClientCompany(),
     holderStatus: _generateHolderStatus(),
     phoneNumber: _generatePhoneNumber()
 

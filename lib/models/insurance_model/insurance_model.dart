@@ -1,7 +1,7 @@
 class InsuranceClass {
   final String company;
   final String location;
-   String iconPath;
+   final String iconPath;
    final String description;
 
   InsuranceClass({this.company, this.location,this.iconPath,this.description});

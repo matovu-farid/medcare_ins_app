@@ -1,59 +1,90 @@
 import 'package:flutter/cupertino.dart';
+import 'package:medicalApp/gloabal_functions/client_company_functioni/genClientCompanies.dart';
+import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
+import 'package:medicalApp/gloabal_functions/insurance_func/genInsuranceModel.dart';
+import 'package:medicalApp/widgets/tabViews/home/default_home_tab.dart';
+import 'package:medicalApp/models/clients/client.dart';
 import 'package:medicalApp/widgets/tabViews/home/circle_text.dart';
 import 'package:flutter/material.dart';
+import 'package:medicalApp/widgets/tabViews/home/views/home_views/clientCo_view.dart';
 import 'package:mock_data/mock_data.dart';
 
+import 'views/home_views/hospitals_view.dart';
+
 class HomeTab extends StatelessWidget {
+  final List<Clients> clientList;
+  final Clients client;
+
+
+  HomeTab(this.client, this.clientList);
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'DashBoard OverView',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: Card(
-              elevation: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                 TitleCircle(title: 'Hospitals',text: '${mockInteger(1,999)}',),
-                  TitleCircle(title: 'Active Card',text: '${mockInteger(1,999)}',),
-                  TitleCircle(title: 'Insurers',text: '${mockInteger(1,999)}',),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    final List<Map<String,List<String>>> hospitalCollection  = nameLogoMap;
+    final List<Map<String,List<String>>> clientCoCollection =getClientCompanyList();
+    return MaterialApp(
+      routes:
+        {'/':(_)=>DefaultHomeTab(hospitalCollection:hospitalCollection,insuranceCollection:clientCoCollection),
+          '/hospitalView':(_)=>HospitalsOverView(hospitalCollection),
+          '/clientCoView':(_)=>ClientCompanyOverView(clientCoCollection),
+        },
+        );
   }
 }
 
 class TitleCircle extends StatelessWidget {
   final String title;
   final String text;
+  final Function onViewTap;
+  final heroTag;
 
-   TitleCircle({
-    Key key,this.title='title',this.text='text'
-  }) : super(key: key);
-   Key keySize = Key('fractionSizedBox');
+  TitleCircle(
+      {Key key,
+      this.title = 'title',
+      this.text = 'text',
+      this.onViewTap,
+      this.heroTag})
+      : super(key: key);
+  Key keySize = Key('fractionSizedBox');
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: ListTile(
-          title: FractionallySizedBox(
-            key: keySize,
-            widthFactor: 0.2,
-              child: Text(title)),
-            subtitle: CircleText(text: text,),));
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+
+        Text(title),
+        SizedBox(
+          width: 200,
+          height: 200,
+          child: FittedBox(
+            child: CircleText(
+              text: text,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+            width: 100,
+            child: FittedBox(child: ViewButton(onPressed: onViewTap, heroTag: heroTag)))
+      ],
+    );
+  }
+}
+
+class ViewButton extends StatelessWidget {
+  final Function onPressed;
+  final String heroTag;
+
+  ViewButton({this.onPressed, this.heroTag});
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+
+      onPressed: onPressed,
+      label: Text('View'),
+      heroTag: heroTag,
+      backgroundColor: Colors.amber,
+    );
   }
 }

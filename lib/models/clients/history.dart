@@ -1,15 +1,13 @@
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:mock_data/mock_data.dart';
 
-String createImagePath() {
-  return 'images/hospital_pics/${mockInteger(1, 10)}.png';
-}
+
 
 class History {
   final PatientInfo patientInfo;
   final MedicalInfo medicalInfo;
   final Clarification clarification;
-  String iconPath;
+  final String iconPath;
   final String hospitalName;
   final String hospitalLocation;
   String date;
@@ -20,8 +18,9 @@ class History {
       this.hospitalName,
       this.patientInfo,
       this.medicalInfo,
-      this.clarification})
-      : this.iconPath = createImagePath(),
+      this.clarification,
+        this.iconPath})
+      :
         this.date = generateLastSeen(),
         this.sum = "${medicalInfo.hospitalServices.last['sum']},000";
 

@@ -1,3 +1,4 @@
+import 'package:medicalApp/gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'package:medicalApp/models/clients/client.dart';
 
 import 'genBenefits.dart';
@@ -6,15 +7,16 @@ import 'genUserProfile.dart';
 
 
 
-Client genClient(){
-  return Client(
+Clients genClient(){
+  return Clients(
       benefits: generateBenefits(),
-      history: generateHistory(),
-      userProfile: generateUserProfile()
+      historyList: genHistoryList(),
+      userProfile: generateUserProfile(),
+
   );
 }
-List<Client> generateClientList(){
-  List<Client> clientList = [];
+List<Clients> generateClientList(){
+  List<Clients> clientList = [];
 
   for(int i = 0; i < 30;i++){
     clientList.add(genClient());

@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
-import 'package:medicalApp/widgets/tabViews/clients/benefits_widget.dart';
-import 'package:medicalApp/widgets/tabViews/clients/history_details.dart';
-import 'package:medicalApp/widgets/tabViews/clients/user_details.dart';
+import 'package:medicalApp/models/clients/history.dart';
+import 'package:medicalApp/widgets/holderTabs/benefits_button.dart';
+import 'package:medicalApp/widgets/holderTabs/card_button.dart';
+import 'package:medicalApp/widgets/holderTabs/history_button.dart';
+import 'package:medicalApp/widgets/holderTabs/user_button.dart';
 
-import 'package:medicalApp/widgets/userOptions/benefits_button.dart';
-import 'package:medicalApp/widgets/userOptions/card_button.dart';
-import 'package:medicalApp/widgets/userOptions/history_button.dart';
-import 'package:medicalApp/widgets/userOptions/user_button.dart';
+
 import 'package:scoped_model/scoped_model.dart';
 
-import 'card_pic.dart';
-import 'hystory widget.dart';
+import 'client_options/card_pic.dart';
+import 'client_options/benefits_widget.dart';
+import 'client_options/history_details.dart';
+import 'client_options/hystory widget.dart';
+import 'client_options/profile.dart';
 
 
 class UserCard extends StatefulWidget {
-  final Client client;
-  final List<Client> clientList;
+  final Clients client;
+  final List<Clients> clientList;
   static bool buildDetails = false;
+
 
   UserCard(this.client, this.clientList);
 
@@ -27,9 +31,9 @@ class UserCard extends StatefulWidget {
   _UserCardState createState() => _UserCardState();
 }
 
-class _UserCardState extends State<UserCard>
-    with SingleTickerProviderStateMixin {
-  Image createImage(BuildContext context, Client client) {
+class _UserCardState extends State<UserCard> with SingleTickerProviderStateMixin {
+  List<History> historyList = genHistoryList();
+  Image createImage(BuildContext context, Clients client) {
     return Image(image: AssetImage(client.userProfile.imagePath));
   }
 
@@ -59,6 +63,7 @@ class _UserCardState extends State<UserCard>
     _tabController.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,7 @@ class _UserCardState extends State<UserCard>
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('${widget.client.userProfile.company}.'),
+                          Text('${widget.client.userProfile.company.companyName}.'),
                           Text(
                             '${widget.client.userProfile.holderStatus}.',
                             style: setTextStyle(),
@@ -135,10 +140,10 @@ class _UserCardState extends State<UserCard>
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        UserDetails(widget.client),
+                        Profile(widget.client),
                         BenefitsListView(widget.client),
                         CardListView(widget.client),
-                        HistoryListView(widget.clientList, widget.client),
+                        HistoryListView(widget.clientList, widget.client, historyList),
                       ],
                     ),
                   ),
@@ -150,13 +155,11 @@ class _UserCardState extends State<UserCard>
 
               builder: (_){
                 return (model.buildDetails)?
-                HistoryDetails(widget.clientList,widget.client):
+                HistoryDetails(widget.clientList,widget.client,model.history):
                SizedBox(
                 width: 0,
                  height: 0,
                 );
-
-
               },
             )
 

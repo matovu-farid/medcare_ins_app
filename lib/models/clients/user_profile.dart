@@ -1,3 +1,4 @@
+import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:mock_data/mock_data.dart';
 
 enum Gender { Male, Female }
@@ -7,7 +8,7 @@ String createImagePath() {
 }
 
 class UserProfile {
-  final String company;
+  final ClientCompany company;
   final String occupation;
   final String gender;
   final String dateOfBirth;
@@ -43,7 +44,7 @@ class UserProfile {
 
   List<Map<String, String>> toList() {
     return [
-      {'Company': company},
+      {'Company': company.companyName},
       {'Occupation': occupation},
       {'Phone number': phoneNumber},
       {'DOB': dateOfBirth},

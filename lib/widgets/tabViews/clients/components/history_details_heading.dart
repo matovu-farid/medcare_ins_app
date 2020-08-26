@@ -57,13 +57,15 @@ class PWHeading extends pw.StatelessWidget {
 
   @override
   pw.Widget build(pw.Context context) {
+    int color  = Colors.black.value;
 
-    return  pw.Center(
-        child: pw.Text(
-          text,
-          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-        ),
-      )
+    return  pw.Text(
+      text,
+      style: pw.TextStyle(
+        decoration: pw.TextDecoration.underline,
+          fontWeight: pw.FontWeight.bold,
+          color: PdfColor.fromInt(color)),
+    )
 
     ;
   }
@@ -72,16 +74,14 @@ class PWHeading extends pw.StatelessWidget {
 
 class PWContent extends pw.StatelessWidget {
   final String text;
-  String position;
 
-  PWContent(this.text,[this.position='O']);
-  Color color(){
 
-    return (position=='O')?Colors.blue[400]:Colors.blue[200];
-  }
+  PWContent(this.text);
+
   @override
   pw.Widget build(pw.Context context) {
 
-    pw.Text(text,style: pw.TextStyle(fontWeight: pw.FontWeight.bold));
+
+    return pw.Text(text,style: pw.TextStyle(fontWeight: pw.FontWeight.normal));
   }
 }

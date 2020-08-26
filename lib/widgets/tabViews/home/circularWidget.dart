@@ -6,12 +6,12 @@ class CircularWidget extends CustomPainter{
   void paint(Canvas canvas, Size size) {
     Paint paint =
     Paint()
-    ..color=Colors.grey
-    ..strokeWidth = 10
+    ..color=Colors.amber
+    ..strokeWidth = 5
     ..strokeCap = StrokeCap.round
     ..style = PaintingStyle.stroke
     ;
-    canvas.drawCircle(Offset(size.width/2,size.height/2), 100, paint);
+    canvas.drawCircle(Offset(size.width/2,size.height/2), 35, paint);
 
   }
 

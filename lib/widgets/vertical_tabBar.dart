@@ -9,8 +9,9 @@ import 'package:medicalApp/widgets/tabViews/insuranrers/insurance_widget.dart';
 import 'package:medicalApp/widgets/tabViews/settings/setting_widget.dart';
 
 class VerticalTabBar extends StatefulWidget {
-  Client client;
-  final List<Client> clientList = generateClientList();
+  Clients client;
+  final List<Clients> clientList ;
+  VerticalTabBar(this.clientList);
 
 
   @override
@@ -92,7 +93,7 @@ class _VerticalTabBarState extends State<VerticalTabBar>
                   InsuranceTab(),
                   ClientTab(widget.client, widget.clientList),
                   const Text('Hey'),
-                  HomeTab(),
+                  HomeTab(widget.client, widget.clientList),
                 ]),
               ),
             )

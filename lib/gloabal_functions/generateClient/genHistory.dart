@@ -2,14 +2,44 @@
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:mock_data/mock_data.dart';
 
+List<History> genHistoryList(){
+  final listOfHistory = <History>[];
+  for(int i = 0;i<30;i++){
+    listOfHistory.add(generateHistory());
+  }
+  return listOfHistory;
+}
+List<Map<String,List<String>>> nameLogoMap =
+[
+  {'AAR':['AAR Health Services','images/hospital_logos/AAR.jpg']},
+  {'Case':['Case Medical Centre','images/hospital_logos/Case.jpg']},
+  {'IAA':['IAA Health Care','images/hospital_logos/IAA.jpg']},
+  {'IHK':['International Hospital Kampala','images/hospital_logos/IHK.jpg']},
+  {'Kibuli':['Kibuli Hospital','images/hospital_logos/Kibuli.jpg']},
+  {'Lifelink':['LifeLink Hospital','images/hospital_logos/Lifelink.jpg']},
+  {'Nakasero':['Nakasero Hospital','images/hospital_logos/Nakasero.jpg']},
+  {'Nile':['Nile International Hospital','images/hospital_logos/Nile.jpg']},
+  {'Norvik':['Norvik Hospital','images/hospital_logos/Norvik.jpg']},
+  {'Paragon':['Paragon Hospital','images/hospital_logos/Paragon.jpg']},
+
+];
+Map<String,List<String>> _generateHospitalMap(){
+  return nameLogoMap[mockInteger(0,nameLogoMap.length-1)];
+}
+
+
 History generateHistory(){
+  Map<String,List<String>> hospitalMap = _generateHospitalMap();
+  final String hospitalName = hospitalMap[hospitalMap.keys.first][0];
+  final String hospitalLogoPath = hospitalMap[hospitalMap.keys.first][1];
 
   History history = History(
       patientInfo: _generatePatentInfo(),
       medicalInfo: _generateMedicalInfo(),
       clarification: _gererateClarification(),
-    hospitalName: generateHospitalName(),
+    hospitalName: hospitalName,
     hospitalLocation: generatelocation(),
+    iconPath: hospitalLogoPath,
 
   );
 
@@ -24,12 +54,7 @@ String generatelocation() {
   return relationship;
 }
 
-String generateHospitalName() {
-  List<String> relationShips = ['IAA HealthServices','AAR HealthServices','Case Hospital','Mulago Hospital','LifeLink Hospital'];
-  var relationship = relationShips[mockInteger(0,relationShips.length-1)];
 
-  return relationship;
-}
 
 
 MedicalInfo _generateMedicalInfo(){
@@ -67,7 +92,7 @@ PatientInfo _generatePatentInfo(){
     relationship: _generateRelationShip(),
     dateOfBirth: generateDate(),
     gender: _generateGender(),
-    medicalCardNo: mockUUID(),
+    medicalCardNo: '${mockString(5)}-${mockInteger(9999,100000000)}',
   );
   return patientInfo;
 
