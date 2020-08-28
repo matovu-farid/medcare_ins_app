@@ -6,6 +6,7 @@ import 'package:medicalApp/models/clients/client.dart';
 import 'package:medicalApp/widgets/tabViews/clients/user_tile.dart';
 import 'package:medicalApp/widgets/tabViews/home/homeView.dart';
 import 'package:medicalApp/widgets/tabViews/insuranrers/insurance_widget.dart';
+import 'package:medicalApp/widgets/tabViews/registration_form/registration_page.dart';
 import 'package:medicalApp/widgets/tabViews/settings/setting_widget.dart';
 
 class VerticalTabBar extends StatefulWidget {
@@ -42,6 +43,10 @@ class _VerticalTabBarState extends State<VerticalTabBar>
     RotatedBox(
       quarterTurns: 1,
       child: Tab(icon: Icon(LineAwesomeIcons.television), text: 'Statistics'),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(LineAwesomeIcons.registered_trademark), text: 'Register'),
     ),
     RotatedBox(
       quarterTurns: 1,
@@ -93,6 +98,7 @@ class _VerticalTabBarState extends State<VerticalTabBar>
                   InsuranceTab(),
                   ClientTab(widget.client, widget.clientList),
                   const Text('Hey'),
+                  RegistrationPage(),
                   HomeTab(widget.client, widget.clientList),
                 ]),
               ),
