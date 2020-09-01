@@ -5,6 +5,9 @@ import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/settings/settings.dart';
 import 'package:scoped_model/scoped_model.dart';
 class SettingsTab extends StatefulWidget {
+final MedicalModel model;
+
+SettingsTab(this.model);
 
   @override
   _SettingsTabState createState() => _SettingsTabState();
@@ -59,13 +62,9 @@ class _SettingsTabState extends State<SettingsTab> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Change Password'),
                 ),
-                ScopedModelDescendant<MedicalModel>(
-                  builder: (context, child,model) {
-                    return ListTile(title: TextField(obscureText: model.obsureAdminPassword,controller: controller,)
-                    ,trailing: IconButton(icon:Icon(LineAwesomeIcons.eye),onPressed: ()=>model.setObscureAdminPassword(),),
+                ListTile(title: TextField(obscureText: widget.model.obsureAdminPassword,controller: controller,)
+                  ,trailing: IconButton(icon:Icon(LineAwesomeIcons.eye),onPressed: ()=>widget.model.setObscureAdminPassword(),),
 
-                    );
-                  }
                 )],
             ),
           ),

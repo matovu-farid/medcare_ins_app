@@ -2,19 +2,21 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/widgets/tabViews/clients/components/pdfBuild.dart';
+import 'package:scoped_model/scoped_model.dart';
 import '../components/history_details_heading.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class HistoryDetails extends StatefulWidget {
-  final List<Clients> clientList;
-  final Clients client;
+
+  final MyClient client;
   final History history;
 
-  HistoryDetails(this.clientList, this.client,this.history);
+  HistoryDetails( this.client,this.history);
 
   @override
   _HistoryDetailsState createState() => _HistoryDetailsState();
@@ -62,26 +64,34 @@ class _HistoryDetailsState extends State<HistoryDetails> {
       child: ListView(shrinkWrap: true, children: [
         Row(
           children: [
-            FloatingActionButton.extended(
-                onPressed: () {
+            //save pdf
+            ScopedModelDescendant<MedicalModel>(
 
-                  rootBundle.load(widget.history.iconPath)
-                    ..then((data) =>  this.logoData = data);
-                  BuildPdf(
-                    hospitalName: widget.history.hospitalName,
-                      logoData: logoData,
-                      dpData: dpData,
-                      client: widget.client,
-                      listOfHospitalServices: listOfHospitalServices,
-                      listOfDrugs: listOfDrugs,
-                      clarificationList: clarificationList,
-                      listOfResults: listOfResults,
-                      listOPatientInfo: listOPatientInfo).makePdf();
+              builder: (context, ____,model) {
+                return FloatingActionButton.extended(
+                    onPressed: () {
 
-                  //makePdf();
-                  //imageBlob();
-                },
-                label: Text('save pdf')),
+                      rootBundle.load(widget.history.iconPath)
+                        ..then((data) =>  this.logoData = data);
+                      BuildPdf(
+                        model:model,
+                        hospitalName: widget.history.hospitalName,
+                          logoData: logoData,
+                          dpData: dpData,
+                          client: widget.client,
+                          listOfHospitalServices: listOfHospitalServices,
+                          listOfDrugs: listOfDrugs,
+                          clarificationList: clarificationList,
+                          listOfResults: listOfResults,
+                          listOPatientInfo: listOPatientInfo).makePdf();
+
+                      //makePdf();
+                      //imageBlob();
+                    },
+                    label: Text('save pdf'));
+              }
+            ),
+            //download pdf
             FloatingActionButton.extended(
                 onPressed: () {
                   BuildPdf(logoData: logoData,

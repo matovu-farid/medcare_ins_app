@@ -13,17 +13,14 @@ Image createImage(BuildContext context, History history) {
 }
 
 class HistoryListView extends StatelessWidget {
-  final List<Clients> clientList;
-  final Clients client;
-  final List<History> historyList;
 
-  Stream<String> createAStream() async* {
-    yield 'Not Clicked';
-  }
 
-  HistoryListView(this.clientList, this.client,this.historyList);
+final MedicalModel model;
 
-  Color heartColor(Clients client) {
+
+HistoryListView(this.model);
+
+Color heartColor(MyClient client) {
     if (client.userProfile.likability == 'Dislike') {
       return ThemeData().splashColor;
     } else
@@ -39,9 +36,9 @@ class HistoryListView extends StatelessWidget {
       child: ListView.separated(
           shrinkWrap: true,
           separatorBuilder: (BuildContext context, int index) => Divider(
-                thickness: 3,
-              ),
-          itemCount: clientList.length,
+            thickness: 3,
+          ),
+          itemCount: model.historyList.length,
           itemBuilder: (_, index) {
             return DecoratedBox(
               decoration: BoxDecoration(
@@ -51,40 +48,37 @@ class HistoryListView extends StatelessWidget {
                 ),
               ),
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 400),
+                  constraints: BoxConstraints(maxWidth: 400),
 
-                child: ScopedModelDescendant<MedicalModel>(
-                    builder: (context, child, model) {
-                  return ListTile(
+                  child: ListTile(
                     onTap: () {
-                      model.setBuildDetails(historyList[index]);
+                      model.setSelectedHistory(model.historyList[index]);
                     },
                     trailing: SizedBox(
                       width: 150,
                       child: ListTile(
-                        title: Text('${historyList[index].sum} UGX'),
+                        title: Text('${model.historyList[index].sum} UGX'),
                         subtitle: Padding(
                           padding: const EdgeInsets.all(1),
-                          child: Text(historyList[index].date),
+                          child: Text(model.historyList[index].date),
                         ),
                       ),
                     ),
                     focusColor: Colors.blue,
                     hoverColor: Colors.green,
-                    title: Text(' ${historyList[index].hospitalName}'),
+                    title: Text(' ${model.historyList[index].hospitalName}'),
                     subtitle:
-                        Text('${historyList[index].hospitalLocation}.'),
+                    Text('${model.historyList[index].hospitalLocation}.'),
                     leading: SizedBox(
                       width: 50,
                       height: 50,
                       child: FittedBox(
                         child: DefaultAssetBundle(
                             bundle: DefaultAssetBundle.of(context),
-                            child: createImage(context, historyList[index])),
+                            child: createImage(context, model.historyList[index])),
                       ),
                     ),
-                  );
-                }),
+                  )
               ),
             );
 //

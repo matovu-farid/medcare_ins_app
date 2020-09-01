@@ -1,5 +1,6 @@
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:mock_data/mock_data.dart';
+import 'package:flutter/material.dart';
 
 enum Gender { Male, Female }
 
@@ -18,6 +19,7 @@ class UserProfile {
   final String name;
   String likability;
   String imagePath;
+  Widget imageWidget;
   final String regDate;
   final String holderStatus;
   final String phoneNumber;

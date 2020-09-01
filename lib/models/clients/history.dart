@@ -1,5 +1,4 @@
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
-import 'package:mock_data/mock_data.dart';
 
 
 

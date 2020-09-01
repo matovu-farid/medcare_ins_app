@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genClient.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
 
 import 'package:medicalApp/widgets/vertical_tabBar.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,7 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Clients> clientList = generateClientList();
+  final List<MyClient> clientList = generateClientList();
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,14 @@ class _HomeState extends State<Home> {
         body: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: FittedBox(child: VerticalTabBar(clientList))),
+            child: FittedBox(
+                child: ScopedModelDescendant<MedicalModel>(
+
+                  builder: (context, snapshot,model) {
+
+                    return VerticalTabBar(model.clientList,model);
+                  }
+                ))),
       ),
     );
   }

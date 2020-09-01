@@ -1,23 +1,26 @@
 
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
 
 import 'user_card.dart';
 
 
-Image createImage(BuildContext context,Clients client) {
+Image createImage(BuildContext context,MyClient client) {
   return Image(
 
   image: AssetImage(client.userProfile.imagePath));
 }
 class ClientTab extends StatefulWidget {
-   final List<Clients> clientList;
-   List<Clients> searchedClients;
-   Clients client ;
+   final List<MyClient> clientList;
+   List<MyClient> searchedClients;
+   MyClient client ;
+   final MedicalModel model;
 
-  ClientTab( this.client,this.clientList);
+  ClientTab( this.client,this.clientList,this.model);
 
   @override
   _ClientTabState createState() => _ClientTabState();
@@ -25,19 +28,22 @@ class ClientTab extends StatefulWidget {
 }
 
 class _ClientTabState extends State<ClientTab> {
-
+  ScrollController _scrollController;
   @override
   void initState() {
+    _scrollController = ScrollController();
     super.initState();
-    widget.searchedClients = widget.clientList;
   }
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    widget.searchedClients = widget.clientList;
 
     return SizedBox(
        height: MediaQuery.of(context).size.height,
@@ -54,7 +60,8 @@ class _ClientTabState extends State<ClientTab> {
               onChanged: (String clientName){
                 setState(() {
                   widget.searchedClients = widget.clientList
-                      .where((client) => client.userProfile.name.toLowerCase().contains(RegExp(clientName.toLowerCase()))).toList();
+                      .where((client) => client.userProfile.name.toLowerCase()
+                      .contains(RegExp(clientName.toLowerCase()))).toList();
                 });
               },
 
@@ -80,48 +87,65 @@ class _ClientTabState extends State<ClientTab> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+
                         ConstrainedBox(
                           constraints: BoxConstraints(
                             maxWidth: 400,
                             maxHeight: MediaQuery.of(context).size.height
                           ),
-                          child: ListView.separated(
+                          child: DraggableScrollbar.rrect(
+                            backgroundColor: Colors.green,
+                            alwaysVisibleScrollThumb: true,
+                            controller: _scrollController,
+                            child: ListView.separated(
+                                controller: _scrollController,
 
-                              separatorBuilder: (BuildContext context, int index) => Divider(
-                                thickness: 3,
-                              ),
-                              itemCount: widget.searchedClients.length,
-                              itemBuilder: (_, index) {
-                                return DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                      color: Colors.grey,
+                                separatorBuilder: (BuildContext context, int index) => Divider(
+                                  thickness: 3,
+                                ),
+                                itemCount: widget.searchedClients.length,
+                                itemBuilder: (_, index) {
+                                  return DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                      ),
                                     ),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(' ${widget.searchedClients[index].userProfile.name}'),
-                                    subtitle: Text('${widget.searchedClients[index].userProfile.company.companyName}.'),
-                                    leading: DefaultAssetBundle(
-                                        bundle: DefaultAssetBundle.of(context),
-                                        child: createImage(context,widget.searchedClients[index])),
-                                    onTap: (){
-                                      setState(() {
-                                        widget.client = widget.searchedClients[index];
-                                      });
+                                    child: ListTile(
+                                      title: Text(' ${widget.searchedClients[index].userProfile.name}'),
+                                      subtitle: Text('${widget.searchedClients[index].userProfile.company.companyName}.'),
+                                      leading: Column(
+                                        children: [
+                                          if(widget.searchedClients[index].isGenerated)
+                                          SizedBox(
+                                            width:50,
+                                            height: 50,
+                                            child: FittedBox(
+                                              child: DefaultAssetBundle(
+                                                  bundle: DefaultAssetBundle.of(context),
+                                                  child: createImage(context,widget.searchedClients[index])),
+                                            ),
+                                          ),
+                                          if(!widget.searchedClients[index].isGenerated)
+                                            SizedBox(
+                                              width: 50,
+                                                height: 50,
+                                                child: FittedBox(child: widget.searchedClients[index].userProfile.imageWidget))
+                                        ],
+                                      ),
+                                      onTap: (){
+                                        widget.model.setClient(widget.searchedClients[index]);
 
-                                    },
-                                  ),
-                                );
-                              }),
+                                      },
+                                    ),
+                                  );
+                                }),
+                          ),
                         ),
-                        Builder(
-                            builder: (_){
-                              if(widget.client!=null){
-                                return UserCard(widget.client,widget.searchedClients);
-                              }else return SizedBox(height:0,width: 0);
-                            }
-                        )
+                        if(widget.model.client!=null)
+                          UserCard(widget.model.client,widget.searchedClients,widget.model),
+
                       ],
                     ),
                   ],

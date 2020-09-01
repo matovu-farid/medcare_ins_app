@@ -20,20 +20,21 @@ import 'client_options/profile.dart';
 
 
 class UserCard extends StatefulWidget {
-  final Clients client;
-  final List<Clients> clientList;
+  final MyClient client;
+  final List<MyClient> clientList;
   static bool buildDetails = false;
+  final MedicalModel model;
 
 
-  UserCard(this.client, this.clientList);
+  UserCard(this.client, this.clientList,this.model);
 
   @override
   _UserCardState createState() => _UserCardState();
 }
 
 class _UserCardState extends State<UserCard> with SingleTickerProviderStateMixin {
-  List<History> historyList = genHistoryList();
-  Image createImage(BuildContext context, Clients client) {
+
+  Image createImage(BuildContext context, MyClient client) {
     return Image(image: AssetImage(client.userProfile.imagePath));
   }
 
@@ -67,107 +68,106 @@ class _UserCardState extends State<UserCard> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MedicalModel>(
-        builder: (context, child, model) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 400),
-            child: Card(
-              shadowColor: Colors.grey[700],
-              elevation: 3,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: 400,
-                    child: ListTile(
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(LineAwesomeIcons.edit),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(LineAwesomeIcons.trash),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      isThreeLine: true,
-                      title: Text(' ${widget.client.userProfile.name}'),
-                      subtitle: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('${widget.client.userProfile.company.companyName}.'),
-                          Text(
-                            '${widget.client.userProfile.holderStatus}.',
-                            style: setTextStyle(),
-                          ),
-                        ],
-                      ),
-                      leading: createImage(context, widget.client),
-                    ),
-                  ),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          'Reg Date : ${widget.client.userProfile.regDate}',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      )),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: 400,
-                    ),
-                    child: TabBar(
-                      tabs: tabs,
-                      controller: _tabController,
-                      labelColor: Colors.blue,
-                    ),
-                  ),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.5,
-                      maxWidth: 400,
-                    ),
-                    child: TabBarView(
-                      controller: _tabController,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 400),
+          child: Card(
+            shadowColor: Colors.grey[700],
+            elevation: 3,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 400,
+                  child: ListTile(
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Profile(widget.client),
-                        BenefitsListView(widget.client),
-                        CardListView(widget.client),
-                        HistoryListView(widget.clientList, widget.client, historyList),
+                        IconButton(
+                          icon: Icon(LineAwesomeIcons.edit),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Icon(LineAwesomeIcons.trash),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    isThreeLine: true,
+                    title: Text(' ${widget.client.userProfile.name}'),
+                    subtitle: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('${widget.client.userProfile.company.companyName}.'),
+                        Text(
+                          '${widget.client.userProfile.holderStatus}.',
+                          style: setTextStyle(),
+                        ),
+                      ],
+                    ),
+                    leading: Column(
+                      children: [
+                        if(widget.client.isGenerated)
+                          SizedBox(
+                              width:50,
+                              height: 50,
+                              child: FittedBox(child: createImage(context, widget.client))),
+                        if(!widget.client.isGenerated)
+                          SizedBox(
+                            width: 50,
+                              height: 50,
+                              child: FittedBox(
+                                  child: widget.client.userProfile.imageWidget
+                              ))
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Reg Date : ${widget.client.userProfile.regDate}',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    )),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                  ),
+                  child: TabBar(
+                    tabs: tabs,
+                    controller: _tabController,
+                    labelColor: Colors.blue,
+                  ),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.5,
+                    maxWidth: 400,
+                  ),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      Profile(widget.client),
+                      BenefitsListView(widget.client),
+                      CardListView(widget.client),
+                      HistoryListView( widget.model),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-            Builder(
-
-              builder: (_){
-                return (model.buildDetails)?
-                HistoryDetails(widget.clientList,widget.client,model.history):
-               SizedBox(
-                width: 0,
-                 height: 0,
-                );
-              },
-            )
-
-
-
-
-        ],
-      );
-    });
+        ),
+        if(widget.model.history!=null)
+          HistoryDetails(widget.client,widget.model.history)
+      ],
+    );
   }
 }

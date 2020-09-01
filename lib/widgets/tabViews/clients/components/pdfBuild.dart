@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -11,15 +12,17 @@ class BuildPdf {
   var blob;
   final ByteData logoData;
   final ByteData dpData;
-  final Clients client;
+  final MyClient client;
   final Function listOfHospitalServices;
   final Function listOfDrugs;
   final Function clarificationList;
   final Function listOfResults;
   final Function listOPatientInfo;
   final String hospitalName;
+  final MedicalModel model;
 
   BuildPdf({
+     this.model,
     @required this.hospitalName,
     @required this.logoData,
     @required this.dpData,
@@ -47,10 +50,14 @@ class BuildPdf {
               width: 150,
               height: 150,
               child: pw.FittedBox(
-                child: pw.Image(PdfImage.file(
-                  pdf.document,
-                  bytes: logoData.buffer.asUint8List(),
-                )),
+                child:
+
+                    pw.Image(PdfImage.file(
+                      pdf.document,
+                      bytes: logoData.buffer.asUint8List(),
+                    )),
+
+
               ),
             ),
 
@@ -72,10 +79,21 @@ class BuildPdf {
                 width: 120,
                 height: 120,
                 child: pw.FittedBox(
-                  child: pw.Image(PdfImage.file(
-                    pdf.document,
-                    bytes: dpData.buffer.asUint8List(),
-                  )),
+                  child: pw.Column(
+                    children: [
+                      if(client.isGenerated)
+                      pw.Image(PdfImage.file(
+                        pdf.document,
+                        bytes: dpData.buffer.asUint8List(),
+                      )),
+                      if(!client.isGenerated)
+                        pw.Image(
+
+                            PdfImage.file(pdf.document,
+                                bytes: model.imageBytes)
+                        )
+                    ],
+                  ),
                 ),
               )),
         ),

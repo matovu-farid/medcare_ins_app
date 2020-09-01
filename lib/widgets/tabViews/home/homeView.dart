@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:medicalApp/gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/gloabal_functions/insurance_func/genInsuranceModel.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/widgets/tabViews/home/default_home_tab.dart';
 import 'package:medicalApp/models/clients/client.dart';
 import 'package:medicalApp/widgets/tabViews/home/circle_text.dart';
@@ -12,8 +13,8 @@ import 'package:mock_data/mock_data.dart';
 import 'views/home_views/hospitals_view.dart';
 
 class HomeTab extends StatelessWidget {
-  final List<Clients> clientList;
-  final Clients client;
+  final List<MyClient> clientList;
+  final MyClient client;
 
 
   HomeTab(this.client, this.clientList);

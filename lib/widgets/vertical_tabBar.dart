@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genClient.dart';
+import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
 import 'package:medicalApp/widgets/tabViews/clients/user_tile.dart';
 import 'package:medicalApp/widgets/tabViews/home/homeView.dart';
@@ -10,9 +11,10 @@ import 'package:medicalApp/widgets/tabViews/registration_form/registration_page.
 import 'package:medicalApp/widgets/tabViews/settings/setting_widget.dart';
 
 class VerticalTabBar extends StatefulWidget {
-  Clients client;
-  final List<Clients> clientList ;
-  VerticalTabBar(this.clientList);
+  MyClient client;
+  final List<MyClient> clientList ;
+  final MedicalModel model;
+  VerticalTabBar(this.clientList,this.model);
 
 
   @override
@@ -94,9 +96,9 @@ class _VerticalTabBarState extends State<VerticalTabBar>
               child: RotatedBox(
                 quarterTurns: 1,
                 child: TabBarView(controller: _controller, children: [
-                  SettingsTab(),
-                  InsuranceTab(),
-                  ClientTab(widget.client, widget.clientList),
+                  SettingsTab(widget.model),
+                  InsuranceTab(widget.model),
+                  ClientTab(widget.client, widget.clientList,widget.model),
                   const Text('Hey'),
                   RegistrationPage(),
                   HomeTab(widget.client, widget.clientList),

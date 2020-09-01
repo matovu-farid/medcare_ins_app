@@ -3,7 +3,7 @@ import 'package:medicalApp/models/clients/client.dart';
 
 import '../components/history_details_heading.dart';
 class Profile extends StatelessWidget {
-  final Clients client ;
+  final MyClient client ;
 
   Profile(this.client);
 

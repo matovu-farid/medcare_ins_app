@@ -11,7 +11,10 @@ Image createInsImage(BuildContext context, InsuranceClass insurance) {
 }
 
 class InsuranceTab extends StatelessWidget {
+  final MedicalModel model;
   List<InsuranceClass> insuranceList = generateInsuranceList();
+
+  InsuranceTab(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -27,71 +30,63 @@ class InsuranceTab extends StatelessWidget {
             children: [
               ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: 400),
-                child: ScopedModelDescendant<MedicalModel>(
-                    builder: (context, child, model) {
-                  return ListView.separated(
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => Divider(
-                            thickness: 3,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => Divider(
+                      thickness: 3,
+                    ),
+                    itemCount: insuranceList.length,
+                    itemBuilder: (_, index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Colors.grey,
                           ),
-                      itemCount: insuranceList.length,
-                      itemBuilder: (_, index) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: SizedBox(
-                              width: 300,
-                              child: ListTile(
-                                onTap: () {
-                                  model.setInsurerIndex(index);
-                                },
-                                focusColor: Colors.blue,
-                                hoverColor: Colors.green,
-                                title: Text(' ${insuranceList[index].company}'),
-                                subtitle:
-                                    Text('${insuranceList[index].location}.'),
-                                leading: DefaultAssetBundle(
-                                    bundle: DefaultAssetBundle.of(context),
-                                    child: createInsImage(
-                                        context, insuranceList[index])),
-                              )),
-                        );
-//
-                      });
-                }),
-              ),
-              ScopedModelDescendant<MedicalModel>(builder: (_, child, model) {
-                return (model.insurerIndex != null)
-                    ? ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 400),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                              isThreeLine: true,
+                        ),
+                        child: SizedBox(
+                            width: 300,
+                            child: ListTile(
+                              onTap: () {
+                                model.setInsurerIndex(index);
+                              },
+                              focusColor: Colors.blue,
+                              hoverColor: Colors.green,
+                              title: Text(' ${insuranceList[index].company}'),
+                              subtitle:
+                              Text('${insuranceList[index].location}.'),
                               leading: DefaultAssetBundle(
                                   bundle: DefaultAssetBundle.of(context),
                                   child: createInsImage(
-                                      context, insuranceList[model.insurerIndex])),
-                              title: Text(
-                                  '${insuranceList[model.insurerIndex].company}',style: TextStyle(fontWeight: FontWeight.bold)),
-                              subtitle: Text(
-                                  '${insuranceList[model.insurerIndex].location}'),
-                            ),
-                            Text('Description',style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text('${insuranceList[model.insurerIndex].description}')
-                          ],
-                        ),
-                      )
-                    : SizedBox(
-                        height: 0,
-                        width: 0,
+                                      context, insuranceList[index])),
+                            )),
                       );
-              })
+//
+                    }),
+              ),
+              if(model.insurerIndex != null)
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 400),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        isThreeLine: true,
+                        leading: DefaultAssetBundle(
+                            bundle: DefaultAssetBundle.of(context),
+                            child: createInsImage(
+                                context, insuranceList[model.insurerIndex])),
+                        title: Text(
+                            '${insuranceList[model.insurerIndex].company}',style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            '${insuranceList[model.insurerIndex].location}'),
+                      ),
+                      Text('Description',style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text('${insuranceList[model.insurerIndex].description}')
+                    ],
+                  ),
+                )
+
             ],
           ),
         ),
