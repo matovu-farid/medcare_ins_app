@@ -13,8 +13,6 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   Widget imageWidget;
 
-  final formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
@@ -27,15 +25,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child:
-          ScopedModelDescendant<MedicalModel>(builder: (context, child, model) {
-        return RegistrationPageOne(
-          formKey,
-          model: model,
+    return ScopedModelDescendant<MedicalModel>(builder: (context, child, model) {
+        return ActualRegistrationPage(
+
+    model: model,
         )..imageWidget = model.imageWidget;
-      }),
-    );
+      });
   }
 }

@@ -1,12 +1,15 @@
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'gloabal_functions/generateClient/genClient.dart';
 import 'models/clients/client.dart';
 import 'models/clients/history.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 class MedicalModel extends Model{
+  final List<Map<String,List<String>>> hospitalCollection  = hospitalMap;
+  final List<Map<String,List<String>>> clientCoCollection =getClientCompanyList();
   final List<MyClient> clientList = generateClientList();
   MyClient client ;
   Widget imageWidget;
@@ -15,7 +18,7 @@ class MedicalModel extends Model{
   bool rememberMe = true;
 
   History history ;
-  final List<History> historyList = genHistoryList();
+  //final List<History> historyList = client.historyList;
   Uint8List imageBytes;
 
   MyClient regesteredClient;

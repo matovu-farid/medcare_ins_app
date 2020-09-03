@@ -38,7 +38,7 @@ Color heartColor(MyClient client) {
           separatorBuilder: (BuildContext context, int index) => Divider(
             thickness: 3,
           ),
-          itemCount: model.historyList.length,
+          itemCount: model.client.historyList.length,
           itemBuilder: (_, index) {
             return DecoratedBox(
               decoration: BoxDecoration(
@@ -52,30 +52,30 @@ Color heartColor(MyClient client) {
 
                   child: ListTile(
                     onTap: () {
-                      model.setSelectedHistory(model.historyList[index]);
+                      model.setSelectedHistory(model.client.historyList[index]);
                     },
                     trailing: SizedBox(
                       width: 150,
                       child: ListTile(
-                        title: Text('${model.historyList[index].sum} UGX'),
+                        title: Text('${model.client.historyList[index].sum} UGX'),
                         subtitle: Padding(
                           padding: const EdgeInsets.all(1),
-                          child: Text(model.historyList[index].date),
+                          child: Text(model.client.historyList[index].date),
                         ),
                       ),
                     ),
                     focusColor: Colors.blue,
                     hoverColor: Colors.green,
-                    title: Text(' ${model.historyList[index].hospitalName}'),
+                    title: Text(' ${model.client.historyList[index].hospitalName}'),
                     subtitle:
-                    Text('${model.historyList[index].hospitalLocation}.'),
+                    Text('${model.client.historyList[index].hospitalLocation}.'),
                     leading: SizedBox(
                       width: 50,
                       height: 50,
                       child: FittedBox(
                         child: DefaultAssetBundle(
                             bundle: DefaultAssetBundle.of(context),
-                            child: createImage(context, model.historyList[index])),
+                            child: createImage(context, model.client.historyList[index])),
                       ),
                     ),
                   )

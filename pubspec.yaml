@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  pie_chart: ^3.1.1
   draggable_scrollbar: ^0.0.4
   file_picker_cross: ^3.1.1
   form_field_validator: ^1.0.1

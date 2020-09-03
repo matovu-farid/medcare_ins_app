@@ -13,8 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<MyClient> clientList = generateClientList();
-
 
   @override
   Widget build(BuildContext context) {

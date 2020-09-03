@@ -9,6 +9,7 @@ import 'package:medicalApp/widgets/tabViews/home/circle_text.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalApp/widgets/tabViews/home/views/home_views/clientCo_view.dart';
 import 'package:mock_data/mock_data.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'views/home_views/hospitals_view.dart';
 
@@ -21,13 +22,21 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String,List<String>>> hospitalCollection  = nameLogoMap;
-    final List<Map<String,List<String>>> clientCoCollection =getClientCompanyList();
+//    final List<Map<String,List<String>>> hospitalCollection  = hospitalMap;
+//    final List<Map<String,List<String>>> clientCoCollection =getClientCompanyList();
     return MaterialApp(
       routes:
-        {'/':(_)=>DefaultHomeTab(hospitalCollection:hospitalCollection,insuranceCollection:clientCoCollection),
-          '/hospitalView':(_)=>HospitalsOverView(hospitalCollection),
-          '/clientCoView':(_)=>ClientCompanyOverView(clientCoCollection),
+        {'/':(_)=>DefaultHomeTab(),
+          '/hospitalView':(_)=>ScopedModelDescendant<MedicalModel>(
+            builder: (context, ____,model) {
+              return HospitalsOverView(model.hospitalCollection);
+            }
+          ),
+          '/clientCoView':(_)=>ScopedModelDescendant<MedicalModel>(
+            builder: (context,___,model) {
+              return ClientCompanyOverView(model.clientCoCollection);
+            }
+          ),
         },
         );
   }

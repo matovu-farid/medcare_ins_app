@@ -9,7 +9,7 @@ List<History> genHistoryList(){
   }
   return listOfHistory;
 }
-List<Map<String,List<String>>> nameLogoMap =
+List<Map<String,List<String>>> hospitalMap =
 [
   {'AAR':['AAR Health Services','images/hospital_logos/AAR.jpg']},
   {'Case':['Case Medical Centre','images/hospital_logos/Case.jpg']},
@@ -24,7 +24,7 @@ List<Map<String,List<String>>> nameLogoMap =
 
 ];
 Map<String,List<String>> _generateHospitalMap(){
-  return nameLogoMap[mockInteger(0,nameLogoMap.length-1)];
+  return hospitalMap[mockInteger(0,hospitalMap.length-1)];
 }
 
 

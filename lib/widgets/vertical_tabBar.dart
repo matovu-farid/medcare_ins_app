@@ -9,6 +9,7 @@ import 'package:medicalApp/widgets/tabViews/home/homeView.dart';
 import 'package:medicalApp/widgets/tabViews/insuranrers/insurance_widget.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/registration_page.dart';
 import 'package:medicalApp/widgets/tabViews/settings/setting_widget.dart';
+import 'package:medicalApp/widgets/tabViews/statistics/statistics.dart';
 
 class VerticalTabBar extends StatefulWidget {
   MyClient client;
@@ -98,8 +99,8 @@ class _VerticalTabBarState extends State<VerticalTabBar>
                 child: TabBarView(controller: _controller, children: [
                   SettingsTab(widget.model),
                   InsuranceTab(widget.model),
-                  ClientTab(widget.client, widget.clientList,widget.model),
-                  const Text('Hey'),
+                  UserTileListView(widget.client, widget.clientList,widget.model),
+                  Statistics(),
                   RegistrationPage(),
                   HomeTab(widget.client, widget.clientList),
                 ]),
