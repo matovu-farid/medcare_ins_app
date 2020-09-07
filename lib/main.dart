@@ -1,4 +1,5 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ main(){
 
 class MedCareApp extends StatelessWidget{
 
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
  final MedicalModel model =MedicalModel();
 
 // MedCareApp({Key key,this.model}):super(key:key);
@@ -32,17 +35,31 @@ class MedCareApp extends StatelessWidget{
     
     
     
-    return ScopedModel<MedicalModel>(
-      model: model,
-      child: MaterialApp(
-        routes: {
-          '/':(_)=>Home(),
-          '/Login':(_)=>Login()
-        },
-        initialRoute: '/',
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return MaterialApp(home: Container(child: Text('Some thing with the database went wrong')));
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ScopedModel<MedicalModel>(
+            model: model,
+            child: MaterialApp(
+              routes: {
+                '/': (_) => Home(),
+                '/Login': (_) => Login()
+              },
+              initialRoute: '/',
 
 
-        ),
+            ),
+          );
+        }
+        return MaterialApp(
+            home: Container(child: Text('Loading')));
+        }
     );
   }
 

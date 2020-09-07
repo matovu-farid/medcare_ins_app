@@ -28,6 +28,24 @@
       });
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <!-- Firebase Configuration -->
+  <script>
+      var firebaseConfig = {
+          apiKey: "AIzaSyAj9jgZFi_S46SW-C4TajhYFLdcU9sL5A0",
+          authDomain: "medcare-insurace.firebaseapp.com",
+          databaseURL: "https://medcare-insurace.firebaseio.com",
+          projectId: "medcare-insurace",
+          storageBucket: "medcare-insurace.appspot.com",
+          messagingSenderId: "60053725903",
+          appId: "1:60053725903:web:69568b009da66d2cb90dba"
+      };
+
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
   <script type="text/javascript">
