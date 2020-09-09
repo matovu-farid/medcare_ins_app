@@ -8,7 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/fire_base/send_data.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_two_form/registration_page_two.dart';
 import 'package:scoped_model/scoped_model.dart';

@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 import 'gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'gloabal_functions/generateClient/genClient.dart';
-import 'models/clients/client.dart';
+import 'models/clients/myclient.dart';
 import 'models/clients/history.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
@@ -17,7 +17,7 @@ class MedicalModel extends Model{
   bool obsureAdminPassword=true;
   bool rememberMe = true;
 
-  History history ;
+  UserHistory history ;
   //final List<History> historyList = client.historyList;
   Uint8List imageBytes;
 
@@ -51,7 +51,7 @@ void addToClientList(MyClient client){
     clientList.add(client);
     notifyListeners();
 }
-  void setSelectedHistory(History historyGot){
+  void setSelectedHistory(UserHistory historyGot){
        history = historyGot;
       notifyListeners();
   }

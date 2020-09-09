@@ -1,6 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:mock_data/mock_data.dart';
 import 'package:flutter/material.dart';
+part 'user_profile.g.dart';
 
 enum Gender { Male, Female }
 
@@ -8,6 +10,7 @@ String createImagePath() {
   return 'images/profile_images/${mockInteger(1, 9)}.jpg';
 }
 
+@JsonSerializable()
 class UserProfile {
   final ClientCompany company;
   final String occupation;
@@ -19,7 +22,7 @@ class UserProfile {
   final String name;
   String likability;
   String imagePath;
-  Widget imageWidget;
+  dynamic imageWidget;
   final String regDate;
   final String holderStatus;
   final String phoneNumber;
@@ -38,6 +41,9 @@ class UserProfile {
       this.email,
       this.address})
       : this.imagePath = createImagePath();
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
+  Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 
   @override
   String toString() {

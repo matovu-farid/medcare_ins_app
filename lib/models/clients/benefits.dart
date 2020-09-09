@@ -1,12 +1,16 @@
-enum Coverage { AssistanceOnly, Covered }
+//enum Coverage { AssistanceOnly, Covered }
 
+import 'package:json_annotation/json_annotation.dart';
+part 'benefits.g.dart';
+
+@JsonSerializable()
 class Benefits {
   final int hospitalizationInsurance;
-  final Coverage tripsToEmergencyRoom;
+  final int tripsToEmergencyRoom;
   final int medicalEvacuation;
-  final Coverage emergencyDentalCare;
-  final Coverage treatmentForInPatientCare;
-  final Coverage mentalHealth;
+  final int emergencyDentalCare;
+  final int treatmentForInPatientCare;
+  final int mentalHealth;
   final int prescriptionDrugs;
 
   Benefits(
@@ -17,6 +21,10 @@ class Benefits {
       this.treatmentForInPatientCare,
       this.mentalHealth,
       this.prescriptionDrugs});
+
+  factory Benefits.fromJson(Map<String, dynamic> json) => _$BenefitsFromJson(json);
+  Map<String, dynamic> toJson() => _$BenefitsToJson(this);
+
 
   @override
   String toString() {
@@ -37,6 +45,6 @@ class Benefits {
   }
 }
 
-String coverageToString(Coverage coverage) {
-  return (coverage == Coverage.Covered) ? 'Covered' : 'Assistance only';
-}
+//String coverageToString(Coverage coverage) {
+//  return (coverage == Coverage.Covered) ? 'Covered' : 'Assistance only';
+//}

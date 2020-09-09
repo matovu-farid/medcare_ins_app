@@ -4,7 +4,7 @@ import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/gloabal_functions/insurance_func/genInsuranceModel.dart';
 import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/widgets/tabViews/home/default_home_tab.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/widgets/tabViews/home/circle_text.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalApp/widgets/tabViews/home/views/home_views/clientCo_view.dart';

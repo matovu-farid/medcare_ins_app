@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

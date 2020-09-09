@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalApp/fire_base/send_data.dart';
 import 'package:medicalApp/medical_model.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/widgets/vertical_tabBar.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
             child: FittedBox(
                 child: ScopedModelDescendant<MedicalModel>(
                   builder: (context, snapshot,model) {
-                    SendClient().sendAllClients(model);
+                   // SendClient().sendAllClients(model);
 
                     return VerticalTabBar(model.clientList,model);
                   }

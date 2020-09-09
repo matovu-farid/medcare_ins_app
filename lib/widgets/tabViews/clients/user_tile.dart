@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 
 import 'user_card.dart';
 

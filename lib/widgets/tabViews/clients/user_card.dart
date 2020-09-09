@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/widgets/holderTabs/benefits_button.dart';
 import 'package:medicalApp/widgets/holderTabs/card_button.dart';

@@ -2,8 +2,8 @@
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:mock_data/mock_data.dart';
 
-List<History> genHistoryList(){
-  final listOfHistory = <History>[];
+List<UserHistory> genHistoryList(){
+  final listOfHistory = <UserHistory>[];
   for(int i = 0;i<30;i++){
     listOfHistory.add(generateHistory());
   }
@@ -28,12 +28,12 @@ Map<String,List<String>> _generateHospitalMap(){
 }
 
 
-History generateHistory(){
+UserHistory generateHistory(){
   Map<String,List<String>> hospitalMap = _generateHospitalMap();
   final String hospitalName = hospitalMap[hospitalMap.keys.first][0];
   final String hospitalLogoPath = hospitalMap[hospitalMap.keys.first][1];
 
-  History history = History(
+  UserHistory history = UserHistory(
       patientInfo: _generatePatentInfo(),
       medicalInfo: _generateMedicalInfo(),
       clarification: _gererateClarification(),

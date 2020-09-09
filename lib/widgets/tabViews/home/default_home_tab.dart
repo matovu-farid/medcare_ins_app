@@ -1,7 +1,7 @@
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/widgets/tabViews/clients/user_tile.dart';
 
 import 'package:mock_data/mock_data.dart';

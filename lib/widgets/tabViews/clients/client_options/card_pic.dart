@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 class CardListView extends StatelessWidget {
   final MyClient client;
 

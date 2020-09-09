@@ -1,8 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
+part 'history.g.dart';
 
 
 
-class History {
+@JsonSerializable()
+class UserHistory {
   final PatientInfo patientInfo;
   final MedicalInfo medicalInfo;
   final Clarification clarification;
@@ -12,7 +15,7 @@ class History {
   String date;
   String sum;
 
-  History(
+  UserHistory(
       {this.hospitalLocation,
       this.hospitalName,
       this.patientInfo,
@@ -23,12 +26,16 @@ class History {
         this.date = generateLastSeen(),
         this.sum = "${medicalInfo.hospitalServices.last['sum']},000";
 
+  factory UserHistory.fromJson(Map<String, dynamic> json) => _$UserHistoryFromJson(json);
+  Map<String, dynamic> toJson() => _$UserHistoryToJson(this);
+
   @override
   String toString() {
     return 'History{patientInfo: $patientInfo, medicalInfo: $medicalInfo, clarification: $clarification}';
   }
 }
 
+@JsonSerializable()
 class MedicalInfo {
   final String natureOfillness;
   final String diagnosis;
@@ -46,6 +53,8 @@ class MedicalInfo {
       this.consultationFee,
       this.hospitalServices,
       this.results});
+  factory MedicalInfo.fromJson(Map<String, dynamic> json) => _$MedicalInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$MedicalInfoToJson(this);
 
   @override
   String toString() {
@@ -53,11 +62,15 @@ class MedicalInfo {
   }
 }
 
+@JsonSerializable()
 class Clarification {
   final String doctorsName;
   final String doctorsQualification;
 
   Clarification({this.doctorsName, this.doctorsQualification});
+
+  factory Clarification.fromJson(Map<String, dynamic> json) => _$ClarificationFromJson(json);
+  Map<String, dynamic> toJson() => _$ClarificationToJson(this);
 
   @override
   String toString() {
@@ -72,6 +85,7 @@ class Clarification {
   }
 }
 
+@JsonSerializable()
 class PatientInfo {
   final String patientName;
   final String relationship;
@@ -85,6 +99,8 @@ class PatientInfo {
       this.medicalCardNo,
       this.gender,
       this.dateOfBirth});
+  factory PatientInfo.fromJson(Map<String, dynamic> json) => _$PatientInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$PatientInfoToJson(this);
 
   @override
   String toString() {

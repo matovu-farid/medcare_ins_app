@@ -4,7 +4,7 @@ import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/widgets/tabViews/clients/components/pdfBuild.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -15,7 +15,7 @@ import 'package:pdf/widgets.dart' as pw;
 class HistoryDetails extends StatefulWidget {
 
   final MyClient client;
-  final History history;
+  final UserHistory history;
 
   HistoryDetails( this.client,this.history);
 

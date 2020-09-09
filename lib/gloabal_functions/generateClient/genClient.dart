@@ -1,5 +1,5 @@
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
-import 'package:medicalApp/models/clients/client.dart';
+import 'package:medicalApp/models/clients/myclient.dart';
 
 import 'genBenefits.dart';
 import 'genUserProfile.dart';
