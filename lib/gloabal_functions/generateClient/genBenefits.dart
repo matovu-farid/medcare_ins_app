@@ -23,3 +23,9 @@ Coverage _generateCoverage(){
 int _generateMoney(){
   return mockInteger()*100000;
 }
+Map<String,List<Map<String,dynamic>>> generateAllBenefits(){
+return {
+  'inPatientBenefits':generateBenefits().toList(),
+  'outPatientBenefits':generateBenefits().toList()
+};
+}

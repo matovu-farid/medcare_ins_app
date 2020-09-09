@@ -8,8 +8,8 @@ class BenefitsListView extends StatelessWidget {
 
   BenefitsListView(this.client);
 
-  List<Map<String, dynamic>> listOfBenefits() =>
-      client.benefits.toList();
+//  List<Map<String, dynamic>> listOfBenefits() =>
+//      client.benefits.toList();
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +17,8 @@ class BenefitsListView extends StatelessWidget {
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       children: [
-        Heading('Benefits'),
-        if(client.isGenerated)
-        ListView.builder(
-          physics: ClampingScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: listOfBenefits().length,
-          itemBuilder: (_, index) {
-            String color(){
-              return (index%2==0)?'O':'E';
-            }
-            return Content(
-                '${listOfBenefits()[index].keys.first} : ${listOfBenefits()[index][listOfBenefits()[index].keys.first]}',color());
-          },
-        ),
-        if(!client.isGenerated)
+
+        Heading('InPatient Benefits'),
           ListView.builder(
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
@@ -40,16 +27,12 @@ class BenefitsListView extends StatelessWidget {
               String color(){
                 return (index%2==0)?'O':'E';
               }
-              return Column(
-                children: [
-                  Text('InPatient Benefits'),
-                  Content(
-                      '${client.allBenefits['inPatientBenefits'][index].keys.first} : ${client.allBenefits['inPatientBenefits'][index][client.allBenefits['inPatientBenefits'][index].keys.first]}',color()),
-                ],
-              );
+              return Content(
+                  '${client.allBenefits['inPatientBenefits'][index].keys.first} : ${client.allBenefits['inPatientBenefits'][index][client.allBenefits['inPatientBenefits'][index].keys.first]}',color());
             },
           ),
-        if(!client.isGenerated)
+//        if(!client.isGenerated)
+        Heading('OutPatient Benefits'),
           ListView.builder(
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
@@ -58,13 +41,8 @@ class BenefitsListView extends StatelessWidget {
               String color(){
                 return (index%2==0)?'O':'E';
               }
-              return Column(
-                children: [
-                  Text('OutPatient Benefits'),
-                  Content(
-                      '${client.allBenefits['outPatientBenefits'][index].keys.first} : ${client.allBenefits['outPatientBenefits'][index][client.allBenefits['outPatientBenefits'][index].keys.first]}',color()),
-                ],
-              );
+              return Content(
+                  '${client.allBenefits['outPatientBenefits'][index].keys.first} : ${client.allBenefits['outPatientBenefits'][index][client.allBenefits['outPatientBenefits'][index].keys.first]}',color());
             },
           ),
       ],

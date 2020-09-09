@@ -5,6 +5,7 @@ import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:medicalApp/fire_base/send_data.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:medicalApp/models/clients/client.dart';
@@ -28,76 +29,7 @@ class ActualRegistrationPage extends StatefulWidget {
   ActualRegistrationPage(
       {this.pageController, this.imageWidget, this.model});
 
-  final inPatientBenefitsList = <List<Map<String, dynamic>>>[
-    [
-      {'Hospital accommodation': false}
-    ],
-    [
-      {'Theatre and surgical fees': false}
-    ],
-    [
-      {'Doctors’ and specialists’ fees': false}
-    ],
-    [
-      {'In-hospital pharmaceuticals and dressings': false}
-    ],
-    [
-      {'Surgically implanted prostheses': false}
-    ],
-    [
-      {'Intensive care': false}
-    ],
-    [
-      {'Diagnostic tests': false}
-    ],
-  ];
-  final outPatientBenefitsList = <List<Map<String, dynamic>>>[
-    [
-      {'Dental exams and treatment': false}
-    ],
-    [
-      {'Glasses and contact lenses': false}
-    ],
-    [
-      {'Physiotherapy and chiropractic treatment': false}
-    ],
-    [
-      {'Speech and occupational therapy': false}
-    ],
-    [
-      {'Hearing aids': false}
-    ],
-    [
-      {'Natural therapies, for example acupuncture or naturopathy': false}
-    ],
-  ];
-  final company = [
-    {'NAME OF COMPANY': ''},
-    {'LOCATION': ''}
-  ];
 
-  final membersDetails = [
-    {'SURNAME': '', 'Description': 'required'}, //0
-    {'FIRST NAMES': '', 'Description': 'required'}, //1
-    {'DATE OF BIRTH': '', 'Description': 'required'}, //2
-    {'AGE': '', 'Description': 'required'}, //3
-    {'MARITAL STATUS': '', 'Description': 'required'}, //4
-    {'OCCUPATION': '', 'Description': 'required'}, //5
-    {'NIN': '', 'Description': 'required'}, //6
-    {'POSTAL ADDRESS': ''}, //7
-    {'BLOOD GROUP': '', 'Description': 'required'}, //8
-    {'HEIGHT': ''}, //9
-    {'WEIGHT': ''}, //10
-    {'RESIDENTIAL PHYSICAL ADDRESS': ''}, //11
-    {'ALLERGIES': ''}, //12
-    {'TELEPHONE NO/OFF': ''}, //13
-    {'EMAIL': '', 'Description': 'email'}, //14
-    {'RES': ''}, //15
-    {'MOBILE': '', 'Description': 'Phone number'}, //16
-    {'REGESTRATION DATE': '', 'Description': 'required'}, //17
-    {'GENDER': ''}, //18
-    {'HOLDER STATUS': '', 'Description': 'required'} //19
-  ];
 }
 
 class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
@@ -152,6 +84,9 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
   final listOfDependants = <Dependant>[];
   bool _isImageStringSet = false;
 
+  final AllBenefits benefits = AllBenefits();
+  final DataProvider data = DataProvider();
+
   @override
   Widget build(BuildContext context) {
     return FittedBox(
@@ -171,10 +106,10 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                       persistentFooterButtons: [
                         Submit(
                           formKey: formKey,
-                          company: widget.company,
-                          inPatientBenefitsList: widget.inPatientBenefitsList,
-                          outPatientBenefitsList: widget.outPatientBenefitsList,
-                          membersDetails: widget.membersDetails,
+                          company: data.company,
+                          inPatientBenefitsList: benefits.inPatientBenefitsList,
+                          outPatientBenefitsList: benefits.outPatientBenefitsList,
+                          membersDetails: data.membersDetails,
                           imageWidget: model.imageWidget,
                           model: model,
                         )
@@ -246,17 +181,17 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                   ),
                                   RegInputField(
-                                    labelText: widget.company[0].keys.first,
+                                    labelText: data.company[0].keys.first,
                                     onSaved: (String newValue) {
-                                      widget.company[0][widget.company[0].keys.first] =
+                                      data.company[0][data.company[0].keys.first] =
                                           newValue;
                                     },
                                     description: 'required',
                                   ),
                                   RegInputField(
-                                    labelText: widget.company[1].keys.first,
+                                    labelText: data.company[1].keys.first,
                                     onSaved: (String newValue) {
-                                      widget.company[1][widget.company[1].keys.first] =
+                                      data.company[1][data.company[1].keys.first] =
                                           newValue;
                                     },
                                     description: 'required',
@@ -275,7 +210,7 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                                       mainAxisSpacing: 5,
                                       shrinkWrap: true,
                                       children: [
-                                        ...widget.membersDetails.map((map) {
+                                        ...data.membersDetails.map((map) {
                                           return RegInputField(
                                             labelText: map.keys.first,
                                             onSaved: (String newValue) {
@@ -315,12 +250,12 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                                     ),
                                   ),
 
-                                  AllBenefits(
+                                  AllBenefitsWidget(
                                     formKey,
-                                    company: widget.company,
-                                    inPatientBenefitsList: widget.inPatientBenefitsList,
-                                    outPatientBenefitsList: widget.outPatientBenefitsList,
-                                    membersDetails: widget.membersDetails,
+                                    company: data.company,
+                                    inPatientBenefitsList: benefits.inPatientBenefitsList,
+                                    outPatientBenefitsList: benefits.outPatientBenefitsList,
+                                    membersDetails: data.membersDetails,
                                   )..imageWidget = widget.model.imageWidget,
 
                                 ],
@@ -339,6 +274,82 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
       ),
     );
   }
+}
+class AllBenefits{
+  final inPatientBenefitsList = <List<Map<String, dynamic>>>[
+    [
+      {'Hospital accommodation': false}
+    ],
+    [
+      {'Theatre and surgical fees': false}
+    ],
+    [
+      {'Doctors’ and specialists’ fees': false}
+    ],
+    [
+      {'In-hospital pharmaceuticals and dressings': false}
+    ],
+    [
+      {'Surgically implanted prostheses': false}
+    ],
+    [
+      {'Intensive care': false}
+    ],
+    [
+      {'Diagnostic tests': false}
+    ],
+  ];
+  final outPatientBenefitsList = <List<Map<String, dynamic>>>[
+    [
+      {'Dental exams and treatment': false}
+    ],
+    [
+      {'Glasses and contact lenses': false}
+    ],
+    [
+      {'Physiotherapy and chiropractic treatment': false}
+    ],
+    [
+      {'Speech and occupational therapy': false}
+    ],
+    [
+      {'Hearing aids': false}
+    ],
+    [
+      {'Natural therapies, for example acupuncture or naturopathy': false}
+    ],
+  ];
+}
+class DataProvider{
+
+
+  final company = [
+    {'NAME OF COMPANY': ''},
+    {'LOCATION': ''}
+  ];
+
+  final membersDetails = [
+    {'SURNAME': '', 'Description': 'required'}, //0
+    {'FIRST NAMES': '', 'Description': 'required'}, //1
+    {'DATE OF BIRTH': '', 'Description': 'required'}, //2
+    {'AGE': '', 'Description': 'required'}, //3
+    {'MARITAL STATUS': '', 'Description': 'required'}, //4
+    {'OCCUPATION': '', 'Description': 'required'}, //5
+    {'NIN': '', 'Description': 'required'}, //6
+    {'POSTAL ADDRESS': ''}, //7
+    {'BLOOD GROUP': '', 'Description': 'required'}, //8
+    {'HEIGHT': ''}, //9
+    {'WEIGHT': ''}, //10
+    {'RESIDENTIAL PHYSICAL ADDRESS': ''}, //11
+    {'ALLERGIES': ''}, //12
+    {'TELEPHONE NO/OFF': ''}, //13
+    {'EMAIL': '', 'Description': 'email'}, //14
+    {'RES': ''}, //15
+    {'MOBILE': '', 'Description': 'Phone number'}, //16
+    {'REGESTRATION DATE': '', 'Description': 'required'}, //17
+    {'GENDER': ''}, //18
+    {'HOLDER STATUS': '', 'Description': 'required'} //19
+  ];
 }
 
 class Submit extends StatelessWidget {
@@ -407,6 +418,7 @@ class Submit extends StatelessWidget {
           },
         );
         model.addToClientList(client);
+        SendClient().sendClient(client);
       },
       label: Text(
         'Submit',

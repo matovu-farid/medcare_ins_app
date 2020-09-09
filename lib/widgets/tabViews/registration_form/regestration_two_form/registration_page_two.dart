@@ -1,16 +1,10 @@
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/models/client_company_model/client_company_model.dart';
-import 'package:medicalApp/models/clients/client.dart';
-import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/components/farid_form_field.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/registration_page_one.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-class AllBenefits extends StatefulWidget {
+
+
+class AllBenefitsWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final List<List<Map<String, dynamic>>> inPatientBenefitsList;
   final List<List<Map<String, dynamic>>> outPatientBenefitsList;
@@ -20,7 +14,7 @@ class AllBenefits extends StatefulWidget {
   final List<Map<String, String>> company;
    Widget imageWidget;
 
-  AllBenefits(this.formKey,
+  AllBenefitsWidget(this.formKey,
       {this.inPatientBenefitsList,
       this.outPatientBenefitsList,
       this.membersDetails,
@@ -29,10 +23,10 @@ class AllBenefits extends StatefulWidget {
       this.imageWidget});
 
   @override
-  _AllBenefitsState createState() => _AllBenefitsState();
+  _AllBenefitsWidgetState createState() => _AllBenefitsWidgetState();
 }
 
-class _AllBenefitsState extends State<AllBenefits> {
+class _AllBenefitsWidgetState extends State<AllBenefitsWidget> {
   _showDialog(BuildContext context) {
     showDialog(
       context: context,

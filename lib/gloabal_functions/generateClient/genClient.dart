@@ -6,7 +6,8 @@ import 'genUserProfile.dart';
 
 MyClient genClient() {
   return MyClient(
-      benefits: generateBenefits(),
+      //benefits: generateBenefits(),
+      allBenefits: generateAllBenefits(),
       userProfile: generateUserProfile(),
       historyList: genHistoryList());
 }
