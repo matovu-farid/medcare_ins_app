@@ -418,7 +418,7 @@ class Submit extends StatelessWidget {
           },
         );
         model.addToClientList(client);
-        SendClient().sendClient(client);
+        SendToFireBase().sendClient(client);
       },
       label: Text(
         'Submit',

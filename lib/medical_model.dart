@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 import 'gloabal_functions/client_company_functioni/genClientCompanies.dart';
 import 'gloabal_functions/generateClient/genClient.dart';
+import 'gloabal_functions/insurance_func/genInsuranceModel.dart';
 import 'models/clients/myclient.dart';
 import 'models/clients/history.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,12 @@ class MedicalModel extends Model{
   final List<Map<String,List<String>>> hospitalCollection  = hospitalMap;
   final List<Map<String,List<String>>> clientCoCollection =getClientCompanyList();
   final List<MyClient> clientList = generateClientList();
+   List<String> get hospitalNameList =>
+       hospitalCollection.map((map) => map[map.keys.first][0]).toList();
+   final List<Map<String,List<String>>> insuranceCollection  = insLogoMap;
+   List<String> get insuranceNameList =>
+       insuranceCollection.map((map) => map[map.keys.first][0]).toList();
+
   MyClient client ;
   Widget imageWidget;
   int insurerIndex;
