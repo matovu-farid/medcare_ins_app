@@ -6,8 +6,8 @@ import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_f
 
 class AllBenefitsWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final List<List<Map<String, dynamic>>> inPatientBenefitsList;
-  final List<List<Map<String, dynamic>>> outPatientBenefitsList;
+  final List<Map<String, dynamic>> inPatientBenefitsList;
+  final List<Map<String, dynamic>> outPatientBenefitsList;
   final List<Map<String, String>> membersDetails;
   final List<Map<String, String>> familyDocInfo;
 
@@ -75,8 +75,8 @@ class _AllBenefitsWidgetState extends State<AllBenefitsWidget> {
               crossAxisCount: 2,
               shrinkWrap: true,
               children: [
-                InPatientBenefits(widget.inPatientBenefitsList),
-                OutPatientBenefits(widget.outPatientBenefitsList)
+                InPatientBenefitsWidget(widget.inPatientBenefitsList),
+                OutPatientBenefitsWidget(widget.outPatientBenefitsList)
               ],
             ),
 
@@ -89,43 +89,44 @@ class _AllBenefitsWidgetState extends State<AllBenefitsWidget> {
 
 
 
-class InPatientBenefits extends StatefulWidget {
-  final List<List<Map<String, dynamic>>> inPatientBenefitsList;
+class InPatientBenefitsWidget extends StatefulWidget {
+  final List<Map<String, dynamic>> inPatientBenefitsList;
 
-  InPatientBenefits(this.inPatientBenefitsList);
+  InPatientBenefitsWidget(this.inPatientBenefitsList);
 
   @override
-  _InPatientBenefitsState createState() => _InPatientBenefitsState();
+  _InPatientBenefitsWidgetState createState() => _InPatientBenefitsWidgetState();
 }
 
-class _InPatientBenefitsState extends State<InPatientBenefits> {
+class _InPatientBenefitsWidgetState extends State<InPatientBenefitsWidget> {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       child: SizedBox(
         width: 300,
         height: 500,
-        child: Column(
+        child: ListView(
+
           children: [
             Text('In Patient Benefits'),
-            ...widget.inPatientBenefitsList.map((benefitList) => SizedBox(
+            ...widget.inPatientBenefitsList.map((benefitMap) => SizedBox(
                   width: 600,
                   child: Wrap(
                     children: [
                       CheckboxListTile(
-                        title: Text(benefitList.first.keys.first),
-                        value: benefitList.first[benefitList.first.keys.first],
+                        title: Text(benefitMap.keys.first),
+                        value: benefitMap['isShown'],
                         onChanged: (bool value) {
                           setState(() {
-                            benefitList.first[benefitList.first.keys.first] = value;
+                            benefitMap['isShown'] = value;
                           });
                         },
                       ),
-                      if (benefitList.first[benefitList.first.keys.first])
+                      if (benefitMap['isShown'])
                         TextBox(
                           text: 'Limit',
                           onSaved: (textGot) {
-                            benefitList.add({'Limit': textGot});
+                            benefitMap[benefitMap.keys.first]=int.parse(textGot);
                           },
                         )
                     ],
@@ -138,16 +139,16 @@ class _InPatientBenefitsState extends State<InPatientBenefits> {
   }
 }
 
-class OutPatientBenefits extends StatefulWidget {
-  final List<List<Map<String, dynamic>>> outPatientBenefitsList;
+class OutPatientBenefitsWidget extends StatefulWidget {
+  final List<Map<String, dynamic>> outPatientBenefitsList;
 
-  OutPatientBenefits(this.outPatientBenefitsList);
+  OutPatientBenefitsWidget(this.outPatientBenefitsList);
 
   @override
-  _OutPatientBenefitsState createState() => _OutPatientBenefitsState();
+  _OutPatientBenefitsWidgetState createState() => _OutPatientBenefitsWidgetState();
 }
 
-class _OutPatientBenefitsState extends State<OutPatientBenefits> {
+class _OutPatientBenefitsWidgetState extends State<OutPatientBenefitsWidget> {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
@@ -157,22 +158,23 @@ class _OutPatientBenefitsState extends State<OutPatientBenefits> {
         child: Column(
           children: [
             Text('Out Patient Benefits'),
-            ...widget.outPatientBenefitsList.map((benefitList) => Wrap(
+            ...widget.outPatientBenefitsList.map((benefitMap) => Wrap(
                   children: [
                     CheckboxListTile(
-                      title: Text(benefitList.first.keys.first),
-                      value: benefitList.first[benefitList.first.keys.first],
+                      title: Text(benefitMap.keys.first),
+                      value: benefitMap['isShown'],
                       onChanged: (bool value) {
                         setState(() {
-                          benefitList.first[benefitList.first.keys.first] = value;
+                          benefitMap['isShown'] = value;
                         });
                       },
                     ),
-                    if (benefitList.first[benefitList.first.keys.first])
+                    if (benefitMap['isShown'])
                       TextBox(
                         text: 'Limit',
                         onSaved: (textGot) {
-                          benefitList.add({'Limit': textGot});
+                          benefitMap[benefitMap.keys.first]=int.parse(textGot);
+
                         },
                       )
                   ],

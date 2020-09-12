@@ -8,8 +8,29 @@ class BenefitsListView extends StatelessWidget {
 
   BenefitsListView(this.client);
 
-//  List<Map<String, dynamic>> listOfBenefits() =>
-//      client.benefits.toList();
+  List<Widget> listOfInPatientBenefits(){
+    List<Widget> benefitsWidgets = [];
+    client.allBenefits['inPatientBenefits'].forEach((key, value) {
+      if(value != 0 || value !='0')
+      benefitsWidgets.add(Content('$key : $value'));
+    });
+
+    return benefitsWidgets;
+
+  }
+
+  List<Widget> listOfOutPatientBenefits(){
+    List<Widget> benefitsWidgets = [];
+    client.allBenefits['outPatientBenefits'].forEach((key, value) {
+      if(value != 0 || value !='0')
+      benefitsWidgets.add(Content('$key : $value'));
+    });
+
+    return benefitsWidgets;
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,32 +40,23 @@ class BenefitsListView extends StatelessWidget {
       children: [
 
         Heading('InPatient Benefits'),
-          ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: client.allBenefits['inPatientBenefits'].length,
-            itemBuilder: (_, index) {
-              String color(){
-                return (index%2==0)?'O':'E';
-              }
-              return Content(
-                  '${client.allBenefits['inPatientBenefits'][index].keys.first} : ${client.allBenefits['inPatientBenefits'][index][client.allBenefits['inPatientBenefits'][index].keys.first]}',color());
-            },
-          ),
+        ListView(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          children:
+          listOfInPatientBenefits()
+          ,
+        ),
 //        if(!client.isGenerated)
         Heading('OutPatient Benefits'),
-          ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: client.allBenefits['outPatientBenefits'].length,
-            itemBuilder: (_, index) {
-              String color(){
-                return (index%2==0)?'O':'E';
-              }
-              return Content(
-                  '${client.allBenefits['outPatientBenefits'][index].keys.first} : ${client.allBenefits['outPatientBenefits'][index][client.allBenefits['outPatientBenefits'][index].keys.first]}',color());
-            },
-          ),
+
+      ListView(
+        physics: ClampingScrollPhysics(),
+        shrinkWrap: true,
+        children:
+          listOfOutPatientBenefits()
+        ,
+      )
       ],
     );
   }

@@ -40,7 +40,7 @@ class MedCareApp extends StatelessWidget{
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return MaterialApp(home: Container(child: Text('Some thing with the database went wrong')));
+          return MaterialApp(home: Scaffold(body: Container(child: Text('Some thing with the database went wrong'))));
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -58,7 +58,7 @@ class MedCareApp extends StatelessWidget{
           );
         }
         return MaterialApp(
-            home: Container(child: Text('Loading')));
+            home: Scaffold(body: Container(child: Text('Loading'))));
         }
     );
   }

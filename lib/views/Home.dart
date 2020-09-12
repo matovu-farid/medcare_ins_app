@@ -28,8 +28,14 @@ class _HomeState extends State<Home> {
             child: FittedBox(child: ScopedModelDescendant<MedicalModel>(
                 builder: (context, snapshot, model) {
               // SendClient().sendAllClients(model);
-              SendToFireBase().sendHospitals(model);
-              SendToFireBase().sendInsuranceCo(model);
+              SendToFireBase()
+                ..sendHospitals(model)
+              ..sendInsuranceCo(model)
+              ..sendAllCompanyImages()
+              ..sendAllHospitalImages()
+              ;
+
+
 
               return VerticalTabBar(model.clientList, model);
             }))),

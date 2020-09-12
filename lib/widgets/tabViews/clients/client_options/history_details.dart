@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +8,6 @@ import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/widgets/tabViews/clients/components/pdfBuild.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../components/history_details_heading.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class HistoryDetails extends StatefulWidget {
@@ -184,21 +182,7 @@ ScrollController _scrollController;
           SizedBox(
             height: 10,
           ),
-//        Heading('Results form Hospital'),
-//        ListView.builder(
-//          physics: ClampingScrollPhysics(),
-//          shrinkWrap: true,
-//          itemCount: listOfResults().length,
-//          itemBuilder: (_, index) {
-//            String color() {
-//              return (index % 2 == 0) ? 'O' : 'E';
-//            }
-//
-//            return Content(
-//                '${listOfResults()[index].keys.first} : ${listOfResults()[index][listOfResults()[index].keys.first]}',
-//                color());
-//          },
-//        ),
+
           SizedBox(
             height: 10,
           ),

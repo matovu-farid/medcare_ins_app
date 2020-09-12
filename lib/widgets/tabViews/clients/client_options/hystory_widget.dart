@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/models/clients/history.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 
 Image createImage(BuildContext context, UserHistory history) {

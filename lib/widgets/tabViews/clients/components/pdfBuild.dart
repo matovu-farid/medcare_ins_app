@@ -88,7 +88,6 @@ class BuildPdf {
                       )),
                       if(!client.isGenerated)
                         pw.Image(
-
                             PdfImage.file(pdf.document,
                                 bytes: model.imageBytes)
                         )
@@ -133,15 +132,7 @@ class BuildPdf {
         pw.SizedBox(
           height: 10,
         ),
-//        PWHeading('Results form Hospital'),
-//        pw.ListView.builder(
-//          itemCount: listOfResults().length,
-//          itemBuilder: (_, index) {
-//            return PWContent(
-//              '${listOfResults()[index].keys.first} : ${listOfResults()[index][listOfResults()[index].keys.first]}',
-//            );
-//          },
-//        ),
+
         pw.SizedBox(
           height: 10,
         ),

@@ -21,9 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-
+  http: ^0.12.2
   uuid: ^2.2.2
-
   cloud_firestore: ^0.14.0+2
   pie_chart: ^3.1.1
   draggable_scrollbar: ^0.0.4

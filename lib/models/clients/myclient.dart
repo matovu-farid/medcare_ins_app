@@ -1,6 +1,4 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicalApp/medical_model.dart';
 import 'package:medicalApp/models/clients/history.dart';
 import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:uuid/uuid.dart';
@@ -14,7 +12,7 @@ class MyClient {
   List<UserHistory> historyList;
   String id;
 
-  final Map<String, List<Map<String, dynamic>>> allBenefits;
+  final Map<String, Map<String, dynamic>> allBenefits;
 
   MyClient(
       {this.allBenefits,

@@ -8,6 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:medicalApp/fire_base/send_data.dart';
 import 'package:medicalApp/gloabal_functions/generateClient/genHistory.dart';
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
+import 'package:medicalApp/models/clients/benefits.dart';
 import 'package:medicalApp/models/clients/myclient.dart';
 import 'package:medicalApp/models/clients/user_profile.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_two_form/registration_page_two.dart';
@@ -19,17 +20,13 @@ import 'components/farid_form_field.dart';
 class ActualRegistrationPage extends StatefulWidget {
   final PageController pageController;
 
-
   final MedicalModel model;
   Widget imageWidget;
 
   @override
   _ActualRegistrationPageState createState() => _ActualRegistrationPageState();
 
-  ActualRegistrationPage(
-      {this.pageController, this.imageWidget, this.model});
-
-
+  ActualRegistrationPage({this.pageController, this.imageWidget, this.model});
 }
 
 class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
@@ -66,6 +63,7 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
 
   ScrollController _scrollController;
   GlobalKey<FormState> formKey;
+
   @override
   void initState() {
     super.initState();
@@ -91,7 +89,7 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
   Widget build(BuildContext context) {
     return FittedBox(
       child: SizedBox(
-        width: MediaQuery.of(context).size.width ,
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: FittedBox(
           child: Form(
@@ -101,172 +99,182 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height,
                 child: ScopedModelDescendant<MedicalModel>(
-                  builder: (context, snapshot,model) {
-                    return Scaffold(
-                      persistentFooterButtons: [
-                        Submit(
-                          formKey: formKey,
-                          company: data.company,
-                          inPatientBenefitsList: benefits.inPatientBenefitsList,
-                          outPatientBenefitsList: benefits.outPatientBenefitsList,
-                          membersDetails: data.membersDetails,
-                          imageWidget: model.imageWidget,
-                          model: model,
-                        )
-                      ],
-
-                      body: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Card(
-                          elevation: 2,
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width * 0.7,
-                              maxHeight: MediaQuery.of(context).size.height,
-                            ),
-                            child: DraggableScrollbar.rrect(
-                              backgroundColor: Colors.grey,
-                              alwaysVisibleScrollThumb: true,
+                    builder: (context, snapshot, model) {
+                  return Scaffold(
+                    persistentFooterButtons: [
+                      Submit(
+                        formKey: formKey,
+                        company: data.company,
+                        inPatientBenefitsList: benefits.inPatientBenefitsList,
+                        outPatientBenefitsList: benefits.outPatientBenefitsList,
+                        membersDetails: data.membersDetails,
+                        imageWidget: model.imageWidget,
+                        model: model,
+                      )
+                    ],
+                    body: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        elevation: 2,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.7,
+                            maxHeight: MediaQuery.of(context).size.height,
+                          ),
+                          child: DraggableScrollbar.rrect(
+                            backgroundColor: Colors.grey,
+                            alwaysVisibleScrollThumb: true,
+                            controller: _scrollController,
+                            child: ListView(
                               controller: _scrollController,
-                              child: ListView(
-                                controller: _scrollController,
-                                children: [
-                                  if (_isImageStringSet)
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          pickImage();
-                                        },
-                                        child: SizedBox(
-                                            width: 200,
-                                            height: 200,
-                                            child: FittedBox(child: widget.imageWidget)),
-                                      ),
-                                    ),
-                                  if (!_isImageStringSet)
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            pickImage();
-                                          });
-                                        },
-                                        child: Container(
+                              children: [
+                                if (_isImageStringSet)
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        pickImage();
+                                      },
+                                      child: SizedBox(
                                           width: 200,
                                           height: 200,
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'TAP TO ADD PHOTO',
-                                                    style: TextStyle(color: Colors.white),
-                                                  ),
+                                          child: FittedBox(
+                                              child: widget.imageWidget)),
+                                    ),
+                                  ),
+                                if (!_isImageStringSet)
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          pickImage();
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 200,
+                                        height: 200,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'TAP TO ADD PHOTO',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
-                                                Icon(LineAwesomeIcons.photo_video)
-                                              ],
-                                            ),
+                                              ),
+                                              Icon(LineAwesomeIcons.photo_video)
+                                            ],
                                           ),
-                                          decoration: BoxDecoration(color: Colors.grey),
                                         ),
+                                        decoration:
+                                            BoxDecoration(color: Colors.grey),
                                       ),
                                     ),
-                                  Text(
-                                    'MEMBERSHIP APPLICATION FORM',
-                                    style:
-                                    TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                   ),
-                                  RegInputField(
-                                    labelText: data.company[0].keys.first,
-                                    onSaved: (String newValue) {
-                                      data.company[0][data.company[0].keys.first] =
-                                          newValue;
-                                    },
-                                    description: 'required',
+                                Text(
+                                  'MEMBERSHIP APPLICATION FORM',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                RegInputField(
+                                  labelText: data.company[0].keys.first,
+                                  onSaved: (String newValue) {
+                                    data.company[0]
+                                        [data.company[0].keys.first] = newValue;
+                                  },
+                                  description: 'required',
+                                ),
+                                RegInputField(
+                                  labelText: data.company[1].keys.first,
+                                  onSaved: (String newValue) {
+                                    data.company[1]
+                                        [data.company[1].keys.first] = newValue;
+                                  },
+                                  description: 'required',
+                                ),
+                                RegHeader(
+                                  text: 'MEMBER DETAILS',
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: GridView.count(
+                                    childAspectRatio: 5 / 1,
+                                    padding: EdgeInsets.all(0),
+                                    physics: ClampingScrollPhysics(),
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 5,
+                                    shrinkWrap: true,
+                                    children: [
+                                      ...data.membersDetails.map((map) {
+                                        return RegInputField(
+                                          labelText: map.keys.first,
+                                          onSaved: (String newValue) {
+                                            map[map.keys.first] = newValue;
+                                          },
+                                          description: map['Description'],
+                                        );
+                                      }),
+                                    ],
                                   ),
-                                  RegInputField(
-                                    labelText: data.company[1].keys.first,
-                                    onSaved: (String newValue) {
-                                      data.company[1][data.company[1].keys.first] =
-                                          newValue;
-                                    },
-                                    description: 'required',
-                                  ),
-                                  RegHeader(
-                                    text: 'MEMBER DETAILS',
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.7,
-                                    child: GridView.count(
-                                      childAspectRatio: 5 / 1,
-                                      padding: EdgeInsets.all(0),
-                                      physics: ClampingScrollPhysics(),
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 5,
-                                      mainAxisSpacing: 5,
-                                      shrinkWrap: true,
+                                ),
+                                RegHeader(
+                                  text:
+                                      'ENTER BELOW DETAILS OF THE ALL DEPENDANTS TO BE INCLUDED IN THE MEMBERSHIP APPLICATION',
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: FittedBox(
+                                    child: Row(
                                       children: [
-                                        ...data.membersDetails.map((map) {
-                                          return RegInputField(
-                                            labelText: map.keys.first,
-                                            onSaved: (String newValue) {
-                                              map[map.keys.first] = newValue;
-                                            },
-                                            description: map['Description'],
-                                          );
-                                        }),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.65,
+                                          child: Table(
+                                            children: listOfRows,
+                                          ),
+                                        ),
+                                        FloatingActionButton(
+                                            child: Icon(LineAwesomeIcons.plus),
+                                            onPressed: () {
+                                              setState(() {
+                                                listOfRows.add(TableCreated()
+                                                    .createTableRow(
+                                                        listOfDependants));
+                                              });
+                                            })
                                       ],
                                     ),
                                   ),
-                                  RegHeader(
-                                    text:
-                                    'ENTER BELOW DETAILS OF THE ALL DEPENDANTS TO BE INCLUDED IN THE MEMBERSHIP APPLICATION',
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.7,
-                                    child: FittedBox(
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width * 0.65,
-                                            child: Table(
-                                              children: listOfRows,
-                                            ),
-                                          ),
-                                          FloatingActionButton(
-                                              child: Icon(LineAwesomeIcons.plus),
-                                              onPressed: () {
-                                                setState(() {
-                                                  listOfRows.add(TableCreated()
-                                                      .createTableRow(listOfDependants));
-                                                });
-                                              })
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                                  AllBenefitsWidget(
-                                    formKey,
-                                    company: data.company,
-                                    inPatientBenefitsList: benefits.inPatientBenefitsList,
-                                    outPatientBenefitsList: benefits.outPatientBenefitsList,
-                                    membersDetails: data.membersDetails,
-                                  )..imageWidget = widget.model.imageWidget,
-
-                                ],
-                              ),
+                                ),
+                                AllBenefitsWidget(
+                                  formKey,
+                                  company: data.company,
+                                  inPatientBenefitsList:
+                                      benefits.inPatientBenefitsList,
+                                  outPatientBenefitsList:
+                                      benefits.outPatientBenefitsList,
+                                  membersDetails: data.membersDetails,
+                                )..imageWidget = widget.model.imageWidget,
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    );
-                  }
-                ),
+                    ),
+                  );
+                }),
               ),
             ),
           ),
@@ -275,54 +283,30 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
     );
   }
 }
-class AllBenefits{
-  final inPatientBenefitsList = <List<Map<String, dynamic>>>[
-    [
-      {'Hospital accommodation': false}
-    ],
-    [
-      {'Theatre and surgical fees': false}
-    ],
-    [
-      {'Doctors’ and specialists’ fees': false}
-    ],
-    [
-      {'In-hospital pharmaceuticals and dressings': false}
-    ],
-    [
-      {'Surgically implanted prostheses': false}
-    ],
-    [
-      {'Intensive care': false}
-    ],
-    [
-      {'Diagnostic tests': false}
-    ],
+
+class AllBenefits {
+  final inPatientBenefitsList = <Map<String, dynamic>>[
+    {'illnessHospitalization': 0, 'isShown': false},   //0
+    {'accidentalHospitalization': 0, 'isShown': false},//1
+    {'iCU': 0, 'isShown': false},                      //2
+    {'ambulanceServices': 0, 'isShown': false},        //3
+    {'chronicsInPatient': 0, 'isShown': false},        //4
+    {'gynecologicalSurvey': 0, 'isShown': false},      //5
+    {'generalSurgery':0,'isShown':false},              //6
+    {'maternity': 0, 'isShown': false},                //7
+    {'funeral': 0, 'isShown': false},                  //8
   ];
-  final outPatientBenefitsList = <List<Map<String, dynamic>>>[
-    [
-      {'Dental exams and treatment': false}
-    ],
-    [
-      {'Glasses and contact lenses': false}
-    ],
-    [
-      {'Physiotherapy and chiropractic treatment': false}
-    ],
-    [
-      {'Speech and occupational therapy': false}
-    ],
-    [
-      {'Hearing aids': false}
-    ],
-    [
-      {'Natural therapies, for example acupuncture or naturopathy': false}
-    ],
+
+  final outPatientBenefitsList = <Map<String, dynamic>>[
+    {'outPatientGeneral': 0, 'isShown': false},  //0
+    {'dental': 0, 'isShown': false},             //1
+    {'optical': 0, 'isShown': false},            //2
+    {'chronicsOutPatient': 0, 'isShown': false}, //3
+    {'annualWellness': 0, 'isShown': false},     //4
   ];
 }
-class DataProvider{
 
-
+class DataProvider {
   final company = [
     {'NAME OF COMPANY': ''},
     {'LOCATION': ''}
@@ -366,11 +350,40 @@ class Submit extends StatelessWidget {
   final MedicalModel model;
   final Widget imageWidget;
   final GlobalKey<FormState> formKey;
-  final List<List<Map<String, dynamic>>> inPatientBenefitsList;
-  final List<List<Map<String, dynamic>>> outPatientBenefitsList;
+  final List<Map<String, dynamic>> inPatientBenefitsList;
+  final List<Map<String, dynamic>> outPatientBenefitsList;
   final List<Map<String, String>> membersDetails;
   final List<Map<String, String>> company;
 
+  Map<String, dynamic> inPatientBenefitsMap() {
+    return InPatientBenefits(
+            illnessHospitalization: inPatientProperty(0),
+            accidentalHospitalization: inPatientProperty(1),
+            iCU: inPatientProperty(2),
+            ambulanceServices: inPatientProperty(3),
+            chronicsInPatient: inPatientProperty(4),
+            gynecologicalSurvey: inPatientProperty(5),
+            generalSurvey: inPatientProperty(6),
+            maternity: inPatientProperty(7),
+            funeral: inPatientProperty(8),)
+        .toJson();
+  }
+  outPatientProperty(int index){
+    return outPatientBenefitsList[index][outPatientBenefitsList[index].keys.first];
+  }
+ inPatientProperty(int index){
+    return inPatientBenefitsList[index][inPatientBenefitsList[index].keys.first];
+  }
+
+  Map<String, dynamic> outPatientBenefitsMap() {
+    return OutPatientBenefits(
+            outPatientGeneral: outPatientProperty(0),
+            dental: outPatientProperty(1),
+            optical: outPatientProperty(2),
+            chronicsOutPatient: outPatientProperty(3),
+            annualWellness: outPatientProperty(4),)
+        .toJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -378,7 +391,7 @@ class Submit extends StatelessWidget {
       backgroundColor: Colors.yellow,
       onPressed: () {
         formKey.currentState.save();
-        formKey.currentState.validate();
+        //formKey.currentState.validate();
         MyClient client = MyClient(
           historyList: genHistoryList(),
           userProfile: UserProfile(
@@ -399,22 +412,8 @@ class Submit extends StatelessWidget {
           )..imageWidget = imageWidget,
           isGenerated: false,
           allBenefits: {
-            'outPatientBenefits': outPatientBenefitsList
-                .where((listOfMaps) =>
-                    listOfMaps.first[listOfMaps.first.keys.first] == true)
-                .map((listOfMaps) => {
-                      '${listOfMaps[0].keys.first}':
-                          '${listOfMaps[1][listOfMaps[1].keys.first]}'
-                    })
-                .toList(),
-            'inPatientBenefits': inPatientBenefitsList
-                .where((listOfMaps) =>
-                    listOfMaps.first[listOfMaps.first.keys.first] == true)
-                .map((listOfMaps) => {
-                      '${listOfMaps[0].keys.first}':
-                          '${listOfMaps[1][listOfMaps[1].keys.first]}'
-                    })
-                .toList()
+            'outPatientBenefits': outPatientBenefitsMap(),
+            'inPatientBenefits': inPatientBenefitsMap(),
           },
         );
         model.addToClientList(client);
@@ -423,11 +422,14 @@ class Submit extends StatelessWidget {
       label: Text(
         'Submit',
         style: TextStyle(
-            fontSize: 26, color: Colors.white,),
+          fontSize: 26,
+          color: Colors.white,
+        ),
       ),
     );
   }
 }
+
 class RegInputField extends StatelessWidget {
   final String labelText;
   final ValueChanged<String> onChanged;
@@ -454,7 +456,7 @@ class RegInputField extends StatelessWidget {
           onSaved: onSaved,
           onChanged: onChanged,
 //          validator: MyValidator(description).validate,
-        validator: MyValidator(description).validate,
+          validator: MyValidator(description).validate,
           decoration: InputDecoration(
               border: OutlineInputBorder(gapPadding: 6),
               labelText: labelText,
