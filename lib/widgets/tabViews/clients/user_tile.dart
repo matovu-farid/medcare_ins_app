@@ -120,10 +120,6 @@ class TileList extends StatelessWidget {
                 controller: scrollController,
                 child: ListView.builder(
                     controller: scrollController,
-//                    separatorBuilder: (BuildContext context, int index) =>
-//                        Divider(
-//                          thickness: 3,
-//                        ),
                     itemCount: searchedClients.length,
                     itemBuilder: (_, index) {
                       return DecoratedBox(
@@ -169,6 +165,8 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      focusColor: Colors.blue,
+      hoverColor: Colors.green,
       title: Text(' ${searchedClients[index].userProfile.name}'),
       subtitle:
           Text('${searchedClients[index].userProfile.company.companyName}.'),

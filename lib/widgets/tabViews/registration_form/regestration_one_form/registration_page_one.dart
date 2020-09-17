@@ -131,7 +131,6 @@ class CompanyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         Text(
@@ -463,7 +462,7 @@ class Submit extends StatelessWidget {
       dateOfBirth: userProfileProperties(6),
       address: userProfileProperties(7),
       regDate: userProfileProperties(8),
-      bloodType: userProfileProperties(9))..imageWidget=imageWidget;
+      bloodType: userProfileProperties(9));
 
    ClientCompany get companyGot => ClientCompany(
   companyName: company[0][company[0].keys.first],
@@ -491,8 +490,11 @@ class Submit extends StatelessWidget {
         formKey.currentState.save();
         //formKey.currentState.validate();
         MyClient client = createClient();
-        model.addToClientList(client);
         SendToFireBase().sendClient(client);
+        //adding image widget after sending to the database
+        client.userProfile.imageWidget=imageWidget;
+        model.addToClientList(client);
+
       },
       label: Text(
         'Submit',

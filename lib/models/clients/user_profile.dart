@@ -2,9 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:medicalApp/models/client_company_model/client_company_model.dart';
 import 'package:mock_data/mock_data.dart';
 import 'package:flutter/material.dart';
-part 'user_profile.g.dart';
 
-enum Gender { Male, Female }
+part 'user_profile.g.dart';
 
 String createImagePath() {
   return 'images/profile_images/${mockInteger(1, 9)}.jpg';
@@ -26,26 +25,23 @@ class UserProfile {
   final String holderStatus;
   final String phoneNumber;
 
-  UserProfile(
-      {
-        @required this.name,
-        @required this.company,
-        @required this.phoneNumber,
-        @required this.occupation,
-        @required this.email,
-        @required this.holderStatus,
-        @required this.gender,
-        @required this.dateOfBirth,
-        @required this.address,
-        @required this.regDate,
-        @required this.bloodType,
+  UserProfile({
+    @required this.name,
+    @required this.company,
+    @required this.phoneNumber,
+    @required this.occupation,
+    @required this.email,
+    @required this.holderStatus,
+    @required this.gender,
+    @required this.dateOfBirth,
+    @required this.address,
+    @required this.regDate,
+    @required this.bloodType,
+  }) : this.imagePath = createImagePath();
 
-      })
-      : this.imagePath = createImagePath();
-
-  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
+  factory UserProfile.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileFromJson(json);
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
-
 
   @override
   String toString() {

@@ -71,7 +71,7 @@ class _UserCardState extends State<UserCard> with SingleTickerProviderStateMixin
           child: Card(
             shadowColor: Colors.grey[700],
             elevation: 3,
-            child: Column(
+            child: ListView(
               //mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(

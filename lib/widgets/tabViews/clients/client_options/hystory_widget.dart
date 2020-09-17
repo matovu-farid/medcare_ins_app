@@ -32,11 +32,8 @@ HistoryListView(this.model);
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 400),
-      child: ListView.separated(
+      child: ListView.builder(
           shrinkWrap: true,
-          separatorBuilder: (BuildContext context, int index) => Divider(
-            thickness: 3,
-          ),
           itemCount: model.client.historyList.length,
           itemBuilder: (_, index) {
             return DecoratedBox(

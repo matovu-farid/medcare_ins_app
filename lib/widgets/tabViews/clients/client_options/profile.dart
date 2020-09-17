@@ -18,8 +18,9 @@ class Profile extends StatelessWidget {
         itemCount: detailsList.length,
         itemBuilder: (_,index){
           String key = detailsList[index].keys.first;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
+          return ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
             children: [
               Heading('$key'),
               Content('${detailsList[index][key]}'),
