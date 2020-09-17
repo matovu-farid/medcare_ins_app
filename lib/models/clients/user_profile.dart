@@ -20,7 +20,6 @@ class UserProfile {
   final String email;
   final String address;
   final String name;
-  String likability;
   String imagePath;
   dynamic imageWidget;
   final String regDate;
@@ -28,26 +27,29 @@ class UserProfile {
   final String phoneNumber;
 
   UserProfile(
-      {this.holderStatus,
-      this.regDate,
-      this.likability = 'Dislike',
-      this.name,
-      this.company,
-      this.phoneNumber,
-      this.occupation,
-      this.gender,
-      this.dateOfBirth,
-      this.bloodType,
-      this.email,
-      this.address})
+      {
+        @required this.name,
+        @required this.company,
+        @required this.phoneNumber,
+        @required this.occupation,
+        @required this.email,
+        @required this.holderStatus,
+        @required this.gender,
+        @required this.dateOfBirth,
+        @required this.address,
+        @required this.regDate,
+        @required this.bloodType,
+
+      })
       : this.imagePath = createImagePath();
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 
+
   @override
   String toString() {
-    return 'UserProfile{company: $company, occupation: $occupation, gender: $gender, dateOfBirth: $dateOfBirth, bloodType: $bloodType, email: $email, address: $address}';
+    return 'UserProfile{company: $company, occupation: $occupation, gender: $gender, dateOfBirth: $dateOfBirth, bloodType: $bloodType, email: $email, address: $address, name: $name, regDate: $regDate, holderStatus: $holderStatus, phoneNumber: $phoneNumber}';
   }
 
   List<Map<String, String>> toList() {

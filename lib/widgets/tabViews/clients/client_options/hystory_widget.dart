@@ -19,12 +19,12 @@ final MedicalModel model;
 
 HistoryListView(this.model);
 
-Color heartColor(MyClient client) {
-    if (client.userProfile.likability == 'Dislike') {
-      return ThemeData().splashColor;
-    } else
-      return Colors.red;
-  }
+//Color heartColor(MyClient client) {
+//    if (client.userProfile.likability == 'Dislike') {
+//      return ThemeData().splashColor;
+//    } else
+//      return Colors.red;
+//  }
 
   //Future future ()async=> await Future.delayed(Duration(milliseconds: 1));
 

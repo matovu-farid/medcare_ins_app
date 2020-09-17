@@ -7,25 +7,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:medicalApp/main.dart';
-
+import 'package:medicalApp/medical_model.dart';
+import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/registration_page_one.dart';
 
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('submit_tester', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MedCareApp());
+//    await tester.pumpWidget(Submit(
+//        model: MedicalModel(),
+//        formKey: GlobalKey<FormState>(),
+//        inPatientBenefitsList: [{'hello':'3'},{'js':'9'}],
+//        outPatientBenefitsList: [{'hello':'3'},{'js':'9'}],
+//        membersDetails: [{'heoo':'','isShown':true}],
+//        imageWidget: FlutterLogo(),
+//        company: [{'hello':'hello'}]));
+//    final finder = find.text('Hello');
+//    expect(finder, findsNothing);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+//    // Verify that our counter starts at 0.
+//    expect(find.text('0'), findsOneWidget);
+//    expect(find.text('1'), findsNothing);
+//
+//    // Tap the '+' icon and trigger a frame.
+//    await tester.tap(find.byIcon(Icons.add));
+//    await tester.pump();
+//
+//    // Verify that our counter has incremented.
+//    expect(find.text('0'), findsNothing);
+//    expect(find.text('1'), findsOneWidget);
   });
 }

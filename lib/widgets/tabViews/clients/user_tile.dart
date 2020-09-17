@@ -118,12 +118,12 @@ class TileList extends StatelessWidget {
                 backgroundColor: Colors.grey,
                 alwaysVisibleScrollThumb: true,
                 controller: scrollController,
-                child: ListView.separated(
+                child: ListView.builder(
                     controller: scrollController,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(
-                          thickness: 3,
-                        ),
+//                    separatorBuilder: (BuildContext context, int index) =>
+//                        Divider(
+//                          thickness: 3,
+//                        ),
                     itemCount: searchedClients.length,
                     itemBuilder: (_, index) {
                       return DecoratedBox(

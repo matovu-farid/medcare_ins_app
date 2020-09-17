@@ -30,37 +30,6 @@ class ActualRegistrationPage extends StatefulWidget {
 }
 
 class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
-  final datePicker = FaridFormField(
-    isDate: true,
-    text: 'Enter Date',
-  );
-  String _filePath;
-  int _fileLength;
-  String _fileString;
-  Uint8List _imageUnit8list;
-
-  pickImage() {
-    FilePickerCross.pick(
-      type: FileTypeCross.image,
-    ).then((filePicker) => setState(() {
-          _filePath = filePicker.path;
-          _imageUnit8list = filePicker.toUint8List();
-          widget.model.setImageBytes(filePicker.toUint8List());
-          _fileLength = filePicker.toUint8List().lengthInBytes;
-          _isImageStringSet = true;
-          widget.model.setImageWidget(Image.memory(
-            filePicker.toUint8List(),
-          ));
-
-          try {
-            _fileString = filePicker.toString();
-          } catch (e) {
-            _fileString =
-                'Not a text file. Showing base64.\n\n' + filePicker.toBase64();
-          }
-        }));
-  }
-
   ScrollController _scrollController;
   GlobalKey<FormState> formKey;
 
@@ -68,7 +37,6 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
   void initState() {
     super.initState();
     formKey = GlobalKey<FormState>();
-    listOfRows.add(TableCreated().createTableRow(listOfDependants));
     _scrollController = ScrollController();
   }
 
@@ -78,12 +46,17 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
     super.dispose();
   }
 
-  final listOfRows = <TableRow>[];
-  final listOfDependants = <Dependant>[];
-  bool _isImageStringSet = false;
-
   final AllBenefits benefits = AllBenefits();
   final DataProvider data = DataProvider();
+  AllBenefitsWidget get benefitsWidget => AllBenefitsWidget(
+    formKey,
+    company: data.company,
+    inPatientBenefitsList:
+    benefits.inPatientBenefitsList,
+    outPatientBenefitsList:
+    benefits.outPatientBenefitsList,
+    membersDetails: data.membersDetails,
+  )..imageWidget = widget.model.imageWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +76,7 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                   return Scaffold(
                     persistentFooterButtons: [
                       Submit(
+                        key: Key('submit'),
                         formKey: formKey,
                         company: data.company,
                         inPatientBenefitsList: benefits.inPatientBenefitsList,
@@ -128,145 +102,11 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
                             child: ListView(
                               controller: _scrollController,
                               children: [
-                                if (_isImageStringSet)
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        pickImage();
-                                      },
-                                      child: SizedBox(
-                                          width: 200,
-                                          height: 200,
-                                          child: FittedBox(
-                                              child: widget.imageWidget)),
-                                    ),
-                                  ),
-                                if (!_isImageStringSet)
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          pickImage();
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 200,
-                                        height: 200,
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'TAP TO ADD PHOTO',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              Icon(LineAwesomeIcons.photo_video)
-                                            ],
-                                          ),
-                                        ),
-                                        decoration:
-                                            BoxDecoration(color: Colors.grey),
-                                      ),
-                                    ),
-                                  ),
-                                Text(
-                                  'MEMBERSHIP APPLICATION FORM',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                                RegInputField(
-                                  labelText: data.company[0].keys.first,
-                                  onSaved: (String newValue) {
-                                    data.company[0]
-                                        [data.company[0].keys.first] = newValue;
-                                  },
-                                  description: 'required',
-                                ),
-                                RegInputField(
-                                  labelText: data.company[1].keys.first,
-                                  onSaved: (String newValue) {
-                                    data.company[1]
-                                        [data.company[1].keys.first] = newValue;
-                                  },
-                                  description: 'required',
-                                ),
-                                RegHeader(
-                                  text: 'MEMBER DETAILS',
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: GridView.count(
-                                    childAspectRatio: 5 / 1,
-                                    padding: EdgeInsets.all(0),
-                                    physics: ClampingScrollPhysics(),
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5,
-                                    shrinkWrap: true,
-                                    children: [
-                                      ...data.membersDetails.map((map) {
-                                        return RegInputField(
-                                          labelText: map.keys.first,
-                                          onSaved: (String newValue) {
-                                            map[map.keys.first] = newValue;
-                                          },
-                                          description: map['Description'],
-                                        );
-                                      }),
-                                    ],
-                                  ),
-                                ),
-                                RegHeader(
-                                  text:
-                                      'ENTER BELOW DETAILS OF THE ALL DEPENDANTS TO BE INCLUDED IN THE MEMBERSHIP APPLICATION',
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: FittedBox(
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.65,
-                                          child: Table(
-                                            children: listOfRows,
-                                          ),
-                                        ),
-                                        FloatingActionButton(
-                                            child: Icon(LineAwesomeIcons.plus),
-                                            onPressed: () {
-                                              setState(() {
-                                                listOfRows.add(TableCreated()
-                                                    .createTableRow(
-                                                        listOfDependants));
-                                              });
-                                            })
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                AllBenefitsWidget(
-                                  formKey,
-                                  company: data.company,
-                                  inPatientBenefitsList:
-                                      benefits.inPatientBenefitsList,
-                                  outPatientBenefitsList:
-                                      benefits.outPatientBenefitsList,
-                                  membersDetails: data.membersDetails,
-                                )..imageWidget = widget.model.imageWidget,
+                                PickImage(widget.model,widget.imageWidget),
+                                CompanyWidget(data),
+                                MemberDetailsWidget(data),
+                               DependantWidget(),
+                               benefitsWidget
                               ],
                             ),
                           ),
@@ -280,6 +120,144 @@ class _ActualRegistrationPageState extends State<ActualRegistrationPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CompanyWidget extends StatelessWidget {
+  final DataProvider data;
+
+  CompanyWidget(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: [
+        Text(
+          'MEMBERSHIP APPLICATION FORM',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
+        ),
+        RegInputField(
+          labelText: data.company[0].keys.first,
+          onSaved: (String newValue) {
+            data.company[0]
+            [data.company[0].keys.first] = newValue;
+          },
+          description: 'required',
+        ),
+        RegInputField(
+          labelText: data.company[1].keys.first,
+          onSaved: (String newValue) {
+            data.company[1]
+            [data.company[1].keys.first] = newValue;
+          },
+          description: 'required',
+        ),
+      ],
+    );
+  }
+}
+
+class DependantWidget extends StatefulWidget {
+
+  @override
+  _DependantWidgetState createState() => _DependantWidgetState();
+}
+
+class _DependantWidgetState extends State<DependantWidget> {
+  final listOfRows = <TableRow>[];
+  final listOfDependants = <Dependant>[];
+@override
+  void initState() {
+    super.initState();
+    listOfRows.add(TableCreated().createTableRow(listOfDependants));
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        RegHeader(
+          text:
+          'ENTER BELOW DETAILS OF THE ALL DEPENDANTS TO BE INCLUDED IN THE MEMBERSHIP APPLICATION',
+        ),
+        SizedBox(
+          width:
+          MediaQuery.of(context).size.width * 0.7,
+          child: FittedBox(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context)
+                      .size
+                      .width *
+                      0.65,
+                  child: Table(
+                    children: listOfRows,
+                  ),
+                ),
+                FloatingActionButton(
+                    child: Icon(LineAwesomeIcons.plus),
+                    onPressed: () {
+                      setState(() {
+                        listOfRows.add(TableCreated()
+                            .createTableRow(
+                            listOfDependants));
+                      });
+                    })
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MemberDetailsWidget extends StatelessWidget {
+  final DataProvider data;
+  MemberDetailsWidget(this.data);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        RegHeader(
+          text: 'MEMBER DETAILS',
+        ),
+        SizedBox(
+          width:
+          MediaQuery.of(context).size.width * 0.7,
+          child: GridView.count(
+            childAspectRatio: 5 / 1,
+            padding: EdgeInsets.all(0),
+            physics: ClampingScrollPhysics(),
+            crossAxisCount: 3,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            shrinkWrap: true,
+            children: [
+              ...data.membersDetails.map((map) {
+                return RegInputField(
+                  labelText: map.keys.first,
+                  onSaved: (String newValue) {
+                    map[map.keys.first] = newValue;
+                  },
+                  description: map['Description'],
+                );
+              }),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -306,34 +284,122 @@ class AllBenefits {
   ];
 }
 
-class DataProvider {
+class DataProvider{
   final company = [
     {'NAME OF COMPANY': ''},
     {'LOCATION': ''}
   ];
 
   final membersDetails = [
-    {'SURNAME': '', 'Description': 'required'}, //0
-    {'FIRST NAMES': '', 'Description': 'required'}, //1
-    {'DATE OF BIRTH': '', 'Description': 'required'}, //2
-    {'AGE': '', 'Description': 'required'}, //3
-    {'MARITAL STATUS': '', 'Description': 'required'}, //4
-    {'OCCUPATION': '', 'Description': 'required'}, //5
-    {'NIN': '', 'Description': 'required'}, //6
-    {'POSTAL ADDRESS': ''}, //7
-    {'BLOOD GROUP': '', 'Description': 'required'}, //8
-    {'HEIGHT': ''}, //9
-    {'WEIGHT': ''}, //10
-    {'RESIDENTIAL PHYSICAL ADDRESS': ''}, //11
-    {'ALLERGIES': ''}, //12
-    {'TELEPHONE NO/OFF': ''}, //13
-    {'EMAIL': '', 'Description': 'email'}, //14
-    {'RES': ''}, //15
-    {'MOBILE': '', 'Description': 'Phone number'}, //16
-    {'REGESTRATION DATE': '', 'Description': 'required'}, //17
-    {'GENDER': ''}, //18
-    {'HOLDER STATUS': '', 'Description': 'required'} //19
+    {'FULL NAMES': '', 'Description': 'required'}, //0
+   {'MOBILE NUMBER': '', 'Description': 'Phone number'},//1
+    {'OCCUPATION': '', 'Description': 'required'},//2
+      {'EMAIL': '', 'Description': 'email'},//3
+  {'HOLDER STATUS': '', 'Description': 'required'},//4
+  {'GENDER': ''},//5
+  {'DATE OF BIRTH': '', 'Description': 'required'},//6
+  {'RESIDENTIAL PHYSICAL ADDRESS': ''},//7
+  {'REGISTRATION DATE': '', 'Description': 'required'},//8
+  {'BLOOD GROUP': '', 'Description': 'required'},//9
+
   ];
+}
+
+class PickImage extends StatefulWidget{
+  final MedicalModel model;
+  final Widget imageWidget;
+
+  PickImage(this.model,this.imageWidget);
+
+  @override
+  _PickImageState createState() => _PickImageState();
+}
+
+class _PickImageState extends State<PickImage> {
+  String _filePath;
+  int _fileLength;
+  String _fileString;
+  Uint8List _imageUnit8list;
+  bool _isImageStringSet = false;
+
+  pickImage() {
+    FilePickerCross.pick(
+      type: FileTypeCross.image,
+    ).then((filePicker) => setState(() {
+      _filePath = filePicker.path;
+      _imageUnit8list = filePicker.toUint8List();
+      widget.model.setImageBytes(filePicker.toUint8List());
+      _fileLength = filePicker.toUint8List().lengthInBytes;
+      _isImageStringSet = true;
+      widget.model.setImageWidget(Image.memory(
+        filePicker.toUint8List(),
+      ));
+
+      try {
+        _fileString = filePicker.toString();
+      } catch (e) {
+        _fileString =
+            'Not a text file. Showing base64.\n\n' + filePicker.toBase64();
+      }
+    }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (_isImageStringSet)
+          Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector(
+              onTap: () {
+                pickImage();
+              },
+              child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: FittedBox(
+                      child: widget.imageWidget)),
+            ),
+          ),
+        if (!_isImageStringSet)
+          Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  pickImage();
+                });
+              },
+              child: Container(
+                width: 200,
+                height: 200,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                        const EdgeInsets.all(8.0),
+                        child: Text(
+                          'TAP TO ADD PHOTO',
+                          style: TextStyle(
+                              color: Colors.white),
+                        ),
+                      ),
+                      Icon(LineAwesomeIcons.photo_video)
+                    ],
+                  ),
+                ),
+                decoration:
+                BoxDecoration(color: Colors.grey),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
 }
 
 class Submit extends StatelessWidget {
@@ -355,19 +421,7 @@ class Submit extends StatelessWidget {
   final List<Map<String, String>> membersDetails;
   final List<Map<String, String>> company;
 
-  Map<String, dynamic> inPatientBenefitsMap() {
-    return InPatientBenefits(
-            illnessHospitalization: inPatientProperty(0),
-            accidentalHospitalization: inPatientProperty(1),
-            iCU: inPatientProperty(2),
-            ambulanceServices: inPatientProperty(3),
-            chronicsInPatient: inPatientProperty(4),
-            gynecologicalSurvey: inPatientProperty(5),
-            generalSurvey: inPatientProperty(6),
-            maternity: inPatientProperty(7),
-            funeral: inPatientProperty(8),)
-        .toJson();
-  }
+
   outPatientProperty(int index){
     return outPatientBenefitsList[index][outPatientBenefitsList[index].keys.first];
   }
@@ -375,15 +429,59 @@ class Submit extends StatelessWidget {
     return inPatientBenefitsList[index][inPatientBenefitsList[index].keys.first];
   }
 
-  Map<String, dynamic> outPatientBenefitsMap() {
-    return OutPatientBenefits(
+  Map<String, dynamic> get inPatientBenefitsMap => InPatientBenefits(
+      illnessHospitalization: inPatientProperty(0),
+      accidentalHospitalization: inPatientProperty(1),
+      iCU: inPatientProperty(2),
+      ambulanceServices: inPatientProperty(3),
+      chronicsInPatient: inPatientProperty(4),
+      gynecologicalSurvey: inPatientProperty(5),
+      generalSurvey: inPatientProperty(6),
+      maternity: inPatientProperty(7),
+      funeral: inPatientProperty(8),).toJson();
+
+
+  Map<String, dynamic> get outPatientBenefitsMap=> OutPatientBenefits(
             outPatientGeneral: outPatientProperty(0),
             dental: outPatientProperty(1),
             optical: outPatientProperty(2),
             chronicsOutPatient: outPatientProperty(3),
-            annualWellness: outPatientProperty(4),)
-        .toJson();
+            annualWellness: outPatientProperty(4),).toJson();
+
+  String userProfileProperties(int index){
+    return membersDetails[index][membersDetails[index].keys.first];
   }
+
+  UserProfile get createUserProfile=>UserProfile(
+      name: userProfileProperties(0),
+      company:  companyGot,
+      phoneNumber: userProfileProperties(1),
+      occupation: userProfileProperties(2),
+      email: userProfileProperties(3),
+      holderStatus: userProfileProperties(4),
+      gender: userProfileProperties(5),
+      dateOfBirth: userProfileProperties(6),
+      address: userProfileProperties(7),
+      regDate: userProfileProperties(8),
+      bloodType: userProfileProperties(9))..imageWidget=imageWidget;
+
+   ClientCompany get companyGot => ClientCompany(
+  companyName: company[0][company[0].keys.first],
+  location: company[1][company[1].keys.first],
+  );
+  MyClient createClient(){
+    MyClient client = MyClient(
+      historyList: genHistoryList(),
+      userProfile: createUserProfile,
+      isGenerated: false,
+      allBenefits: {
+        'outPatientBenefits': outPatientBenefitsMap,
+        'inPatientBenefits': inPatientBenefitsMap,
+      },
+    );
+    return client;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -392,30 +490,7 @@ class Submit extends StatelessWidget {
       onPressed: () {
         formKey.currentState.save();
         //formKey.currentState.validate();
-        MyClient client = MyClient(
-          historyList: genHistoryList(),
-          userProfile: UserProfile(
-            holderStatus: membersDetails[19][membersDetails[19].keys.first],
-            gender: membersDetails[18][membersDetails[18].keys.first],
-            name: membersDetails[0][membersDetails[0].keys.first],
-            dateOfBirth: membersDetails[2][membersDetails[2].keys.first],
-            phoneNumber: membersDetails[16][membersDetails[16].keys.first],
-            occupation: membersDetails[5][membersDetails[5].keys.first],
-            bloodType: membersDetails[8][membersDetails[8].keys.first],
-            address: membersDetails[7][membersDetails[7].keys.first],
-            email: membersDetails[14][membersDetails[14].keys.first],
-            regDate: membersDetails[17][membersDetails[17].keys.first],
-            company: ClientCompany(
-              companyName: company[0][company[0].keys.first],
-              location: company[1][company[1].keys.first],
-            ),
-          )..imageWidget = imageWidget,
-          isGenerated: false,
-          allBenefits: {
-            'outPatientBenefits': outPatientBenefitsMap(),
-            'inPatientBenefits': inPatientBenefitsMap(),
-          },
-        );
+        MyClient client = createClient();
         model.addToClientList(client);
         SendToFireBase().sendClient(client);
       },
@@ -466,6 +541,61 @@ class RegInputField extends StatelessWidget {
     );
   }
 }
+
+class TableCreated {
+  TableRow createTableRow(List<Dependant> listOfDependants) {
+    final dependant = Dependant();
+
+
+    final tableRow = TableRow(children: [
+      TableCell(
+          child: RegInputField(
+            labelText: 'NAMES',
+            description: 'not-required',
+            onSaved: (String newValue) {
+              dependant.names = newValue;
+            },
+          )),
+
+      TableCell(
+          child: RegInputField(
+            labelText: 'GENDER',
+            onSaved: (String newValue) {
+              dependant.gender = newValue;
+            },
+            description: 'not-required',
+          )),
+      TableCell(
+          child: RegInputField(
+            labelText: 'DATE OF BIRTH',
+            onSaved: (String newValue) {
+              dependant.dateOfBirth = newValue;
+            },
+            description: 'not-required',
+          )),
+      TableCell(
+          child: RegInputField(
+            labelText: 'BLOOD GROUP',
+            onSaved: (String newValue) {
+              dependant.bloodGroup = newValue;
+            },
+            description: 'not-required',
+          )),
+
+    ]);
+
+    listOfDependants.add(dependant);
+    return tableRow;
+  }
+}
+
+class Dependant {
+  String names;
+  String gender;
+  String dateOfBirth;
+  String bloodGroup;
+}
+
 
 class MyValidator {
   final String description;
@@ -530,89 +660,3 @@ class RegHeader extends StatelessWidget {
   }
 }
 
-class TableCreated {
-  TableRow createTableRow(List<Dependant> listOfDependants) {
-    final dependant = Dependant();
-
-    final tableRow = TableRow(children: [
-      TableCell(
-          child: RegInputField(
-        labelText: 'SURNAME',
-        description: 'required',
-        onSaved: (String newValue) {
-          dependant.surname = newValue;
-        },
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'FIRST NAME',
-        description: 'required',
-        onSaved: (String newValue) {
-          dependant.firstNames = newValue;
-        },
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'GENDER',
-        onSaved: (String newValue) {
-          dependant.gender = newValue;
-        },
-        description: 'required',
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'DATE OF BIRTH',
-        onSaved: (String newValue) {
-          dependant.dateOfBirth = newValue;
-        },
-        description: 'required',
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'BLOOD GROUP',
-        onSaved: (String newValue) {
-          dependant.bloodGroup = newValue;
-        },
-        description: 'required',
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'ALLERGIES',
-        onSaved: (String newValue) {
-          dependant.allergies = newValue;
-        },
-        description: 'required',
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'HEIGHT',
-        onSaved: (String newValue) {
-          dependant.height = newValue;
-        },
-        description: 'required',
-      )),
-      TableCell(
-          child: RegInputField(
-        labelText: 'WEIGHT',
-        onSaved: (String newValue) {
-          dependant.weight = newValue;
-        },
-        description: 'required',
-      )),
-    ]);
-
-    listOfDependants.add(dependant);
-    return tableRow;
-  }
-}
-
-class Dependant {
-  String surname;
-  String firstNames;
-  String gender;
-  String dateOfBirth;
-  String bloodGroup;
-  String allergies;
-  String height;
-  String weight;
-}

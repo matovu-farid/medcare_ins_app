@@ -10,7 +10,6 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
   return UserProfile(
     holderStatus: json['holderStatus'] as String,
     regDate: json['regDate'] as String,
-    likability: json['likability'] as String,
     name: json['name'] as String,
     company: json['company'] == null
         ? null
@@ -37,7 +36,6 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'email': instance.email,
       'address': instance.address,
       'name': instance.name,
-      'likability': instance.likability,
       'imagePath': instance.imagePath,
       'imageWidget': instance.imageWidget,
       'regDate': instance.regDate,

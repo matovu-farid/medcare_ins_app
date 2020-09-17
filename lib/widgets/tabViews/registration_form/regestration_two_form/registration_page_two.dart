@@ -66,7 +66,7 @@ class _AllBenefitsWidgetState extends State<AllBenefitsWidget> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Column(
+        child: ListView(
           children: [
             RegHeader(
               text: 'BENEFITS',
