@@ -1,29 +1,39 @@
 import 'package:medicalApp/models/insurance_model/insurance_model.dart';
 import 'package:mock_data/mock_data.dart';
 
-List<InsuranceClass> generateInsuranceList(){
+List<InsuranceClass> generateRandomInsuranceList(){
   var insuranceList = <InsuranceClass>[];
 
   for(int i = 0; i<10 ;i ++){
-    insuranceList.add(generateInsurance());
+    insuranceList.add(generateInsurance(_generateInsurancelMap()));
+  }
+  return insuranceList;
+
+}
+List<InsuranceClass> generateAllInsuranceList(){
+  var insuranceList = <InsuranceClass>[];
+
+  for(int i = 0; i<insLogoMap.length ;i ++){
+    insuranceList.add(generateInsurance(insLogoMap[i]));
   }
   return insuranceList;
 
 }
 
-InsuranceClass generateInsurance(){
-  Map<String,List<String>> hospitalMap = _generateInsurancelMap();
+
+InsuranceClass generateInsurance(Map<String,List<String>> hospitalMap){
+
   final String insuranceName = hospitalMap[hospitalMap.keys.first][0];
   final String insuranceLogoPath = hospitalMap[hospitalMap.keys.first][1];
 
   return InsuranceClass(
-
       company: insuranceName,
       location: _generateAddress(),
     iconPath: insuranceLogoPath,
     description: _generateDescription()
   );
 }
+
 
 
 List<Map<String,List<String>>> insLogoMap =

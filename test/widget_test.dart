@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medicalApp/medical_model.dart';
-import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/registration_page_one.dart';
+import 'file:///C:/Users/Sarah/Desktop/medcareInsApp/medicalApp/lib/widgets/tabViews/registration_form/registration_page.dart';
 
 
 void main() {

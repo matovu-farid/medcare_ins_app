@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/components/farid_form_field.dart';
-import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/registration_page_one.dart';
+
+import '../registration_page.dart';
 
 
 
@@ -27,24 +28,7 @@ class AllBenefitsWidget extends StatefulWidget {
 }
 
 class _AllBenefitsWidgetState extends State<AllBenefitsWidget> {
-  _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Select Limit'),
-          actions: [
-            RaisedButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
+
 
   ScrollController _scrollController;
 

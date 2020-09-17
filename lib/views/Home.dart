@@ -32,12 +32,9 @@ class _HomeState extends State<Home> {
                 ..sendHospitals(model)
               ..sendInsuranceCo(model)
               ..sendAllCompanyImages()
-              ..sendAllHospitalImages()
-              ;
+              ..sendAllHospitalImages();
 
-
-
-              return VerticalTabBar(model.clientList, model);
+              return VerticalTabBar( model);
             }))),
       ),
     );

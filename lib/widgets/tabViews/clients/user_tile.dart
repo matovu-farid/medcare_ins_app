@@ -12,24 +12,25 @@ Image createImage(BuildContext context, MyClient client) {
 }
 
 class UserTileListView extends StatefulWidget {
-  final List<MyClient> clientList;
-  List<MyClient> searchedClients;
+
   MyClient client;
 
   final MedicalModel model;
 
-  UserTileListView(this.client, this.clientList, this.model);
+  UserTileListView(this.client, this.model);
 
   @override
   _UserTileListViewState createState() => _UserTileListViewState();
 }
 
 class _UserTileListViewState extends State<UserTileListView> {
+  List<MyClient> searchedClients;
   ScrollController _scrollController;
 
   @override
   void initState() {
     _scrollController = ScrollController();
+    searchedClients = widget.model.clientList;
     super.initState();
   }
 
@@ -41,7 +42,7 @@ class _UserTileListViewState extends State<UserTileListView> {
 
   @override
   Widget build(BuildContext context) {
-    widget.searchedClients = widget.clientList;
+
 
     return SizedBox(
       height: MediaQuery.of(context).size.height,
@@ -49,23 +50,16 @@ class _UserTileListViewState extends State<UserTileListView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FractionallySizedBox(
-            widthFactor: 0.3,
-            child: TextFormField(
+          SearchBar(
               onChanged: (String clientName) {
                 setState(() {
-                  widget.searchedClients = widget.clientList
+                  searchedClients = widget.model.clientList
                       .where((client) => client.userProfile.name
-                          .toLowerCase()
-                          .contains(RegExp(clientName.toLowerCase())))
+                      .toLowerCase()
+                      .contains(RegExp(clientName.toLowerCase())))
                       .toList();
                 });
-              },
-              decoration: InputDecoration(
-                  icon: Icon(LineAwesomeIcons.search),
-                  hintText: 'Search',
-                  border: OutlineInputBorder()),
-            ),
+              }
           ),
           Center(
             child: SizedBox(
@@ -75,7 +69,7 @@ class _UserTileListViewState extends State<UserTileListView> {
                 elevation: 2,
                 child: TileList(
                   scrollController: _scrollController,
-                  searchedClients: widget.searchedClients,
+                  searchedClients: searchedClients,
                   model: widget.model,
                 ),
               ),
@@ -85,6 +79,27 @@ class _UserTileListViewState extends State<UserTileListView> {
       ),
     );
   }
+}
+
+class SearchBar extends StatelessWidget {
+  final ValueChanged<String> onChanged;
+
+  SearchBar({this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.3,
+      child: TextFormField(
+        onChanged: onChanged,
+        decoration: InputDecoration(
+            icon: Icon(LineAwesomeIcons.search),
+            hintText: 'Search',
+            border: OutlineInputBorder()),
+      ),
+    );
+  }
+
 }
 
 class TileList extends StatelessWidget {

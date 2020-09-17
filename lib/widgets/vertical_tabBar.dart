@@ -13,54 +13,27 @@ import 'package:medicalApp/widgets/tabViews/statistics/statistics.dart';
 
 class VerticalTabBar extends StatefulWidget {
   MyClient client;
-  final List<MyClient> clientList ;
-  final MedicalModel model;
-  VerticalTabBar(this.clientList,this.model);
 
+  final MedicalModel model;
+  VerticalTabBar(this.model);
 
   @override
   _VerticalTabBarState createState() => _VerticalTabBarState();
 }
 
+
 class _VerticalTabBarState extends State<VerticalTabBar>
     with SingleTickerProviderStateMixin {
   TabController _controller;
 
+  var tabs = TabProvider().tabs;
 
-  var tabs = [
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(icon: Icon(Icons.settings), text: 'Settings'),
-    ),
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(icon: Icon(LineAwesomeIcons.file_contract), text: 'Insurance'),
-    ),
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(
-        icon: Icon(LineAwesomeIcons.user),
-        text: 'Holders',
-      ),
-    ),
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(icon: Icon(LineAwesomeIcons.television), text: 'Statistics'),
-    ),
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(icon: Icon(LineAwesomeIcons.registered_trademark), text: 'Register'),
-    ),
-    RotatedBox(
-      quarterTurns: 1,
-      child: Tab(icon: Icon(LineAwesomeIcons.warehouse), text: 'Home'),
-    ),
-  ];
+
 
   @override
   void initState() {
     super.initState();
-    widget.client = widget.clientList[0];
+    widget.client = widget.model.clientList[0];
     _controller = TabController(length: tabs.length, vsync: this);
   }
 
@@ -99,10 +72,10 @@ class _VerticalTabBarState extends State<VerticalTabBar>
                 child: TabBarView(controller: _controller, children: [
                   SettingsTab(widget.model),
                   InsuranceTab(widget.model),
-                  UserTileListView(widget.client, widget.clientList,widget.model),
+                  UserTileListView(widget.client, widget.model),
                   Statistics(),
                   RegistrationPage(),
-                  HomeTab(widget.client, widget.clientList),
+                  HomeTab(widget.client, widget.model.clientList),
                 ]),
               ),
             )
@@ -112,3 +85,36 @@ class _VerticalTabBarState extends State<VerticalTabBar>
     );
   }
 }
+
+class TabProvider{
+  get tabs => [
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(Icons.settings), text: 'Settings'),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(LineAwesomeIcons.file_contract), text: 'Insurance'),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(
+        icon: Icon(LineAwesomeIcons.user),
+        text: 'Holders',
+      ),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(LineAwesomeIcons.television), text: 'Statistics'),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(LineAwesomeIcons.registered_trademark), text: 'Register'),
+    ),
+    RotatedBox(
+      quarterTurns: 1,
+      child: Tab(icon: Icon(LineAwesomeIcons.warehouse), text: 'Home'),
+    ),
+  ];
+}
+
