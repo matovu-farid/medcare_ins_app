@@ -9,7 +9,7 @@ class AllBenefitsWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final List<Map<String, dynamic>> inPatientBenefitsList;
   final List<Map<String, dynamic>> outPatientBenefitsList;
-  final List<Map<String, String>> membersDetails;
+  final List<Map<String, dynamic>> membersDetails;
   final List<Map<String, String>> familyDocInfo;
 
   final List<Map<String, String>> company;

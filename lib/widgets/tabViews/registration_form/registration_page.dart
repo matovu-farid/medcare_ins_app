@@ -12,6 +12,7 @@ import 'package:medicalApp/models/clients/benefits.dart';
 import 'package:medicalApp/models/clients/myclient.dart';
 
 import 'package:medicalApp/models/clients/user_profile.dart';
+import 'package:medicalApp/widgets/tabViews/clients/components/history_details_heading.dart';
 import 'package:medicalApp/widgets/tabViews/registration_form/regestration_one_form/components/farid_form_field.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -226,6 +227,8 @@ class MemberDetailsWidget extends StatelessWidget {
   final DataProvider data;
   MemberDetailsWidget(this.data);
 
+  var selectedItem;
+
 
 
   @override
@@ -248,6 +251,18 @@ class MemberDetailsWidget extends StatelessWidget {
             shrinkWrap: true,
             children: [
               ...data.membersDetails.map((map) {
+                if(map['Description']=='isDropdown'){
+
+
+                  final List<String> list = map['List'];
+                  selectedItem =list.first;
+                  return MyDropDown(dropdownNames: list,
+                      text: map.keys.first,
+                      isCollapsed: false, onSaved: (String value) {
+                    map[map.keys.first] = value;
+                    },
+                      );
+                }
                 return RegInputField(
                   labelText: map.keys.first,
                   onSaved: (String newValue) {
@@ -292,17 +307,17 @@ class DataProvider{
     {'LOCATION': ''}
   ];
 
-  final membersDetails = [
+  final List<Map<String,dynamic>> membersDetails = [
     {'FULL NAMES': '', 'Description': 'required'}, //0
    {'MOBILE NUMBER': '', 'Description': 'Phone number'},//1
     {'OCCUPATION': '', 'Description': 'required'},//2
       {'EMAIL': '', 'Description': 'email'},//3
   {'HOLDER STATUS': '', 'Description': 'required'},//4
-  {'GENDER': ''},//5
+  {'GENDER': '','Description':'isDropdown','List':['Male','Female']},//5
   {'DATE OF BIRTH': '', 'Description': 'required'},//6
   {'RESIDENTIAL PHYSICAL ADDRESS': ''},//7
   {'REGISTRATION DATE': '', 'Description': 'required'},//8
-  {'BLOOD GROUP': '', 'Description': 'required'},//9
+  {'BLOOD GROUP': '', 'Description': 'isDropdown','List':['O-','O+','A','B','C']},//9
 
   ];
 }
@@ -420,7 +435,7 @@ class Submit extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final List<Map<String, dynamic>> inPatientBenefitsList;
   final List<Map<String, dynamic>> outPatientBenefitsList;
-  final List<Map<String, String>> membersDetails;
+  final List<Map<String, dynamic>> membersDetails;
   final List<Map<String, String>> company;
 
 
@@ -497,6 +512,7 @@ class Submit extends StatelessWidget {
         //adding image widget after sending to the database
         client.userProfile.imageWidget=imageWidget;
         model.addToClientList(client);
+
 
       },
       label: Text(
@@ -632,6 +648,19 @@ class MyValidator {
   }
 }
 
+class PhoneValidator extends TextFieldValidator {
+  PhoneValidator(String errorText) : super(errorText);
+
+  @override
+  bool isValid(String value) {
+    //r'[(^\D)(\w)](^((0)(\d{9}))$)|(^((\+)(\d{11,12}))$)'
+    // return true if the value is valid according the your condition
+    String phoneNumber = r'(^((0)(\d{9}))$)|(^((\+)(\d{11,12}))$)';
+
+    return hasMatch('${phoneNumber}', value);
+  }
+}
+
 class MyEmailValidator extends TextFieldValidator {
   /// regex pattern to validate email inputs.
   final Pattern _emailPattern =
@@ -665,3 +694,55 @@ class RegHeader extends StatelessWidget {
   }
 }
 
+class MyDropDown extends StatefulWidget{
+  final List<String> dropdownNames;
+  final String text;
+  final bool isCollapsed;
+
+  final String hint;
+  FormFieldSetter<String> onSaved;
+
+
+  MyDropDown({@required this.dropdownNames, this.text, this.isCollapsed =true,
+    this.hint,@required this.onSaved});
+
+  @override
+  _MyDropDownState createState() => _MyDropDownState();
+}
+
+class _MyDropDownState extends State<MyDropDown> {
+  String selectedItem;
+
+  @override
+  void initState() {
+    selectedItem = widget.dropdownNames.first;
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    List<DropdownMenuItem<String>> dropItems = [
+      ...widget.dropdownNames.map((name) => DropdownMenuItem<String>(
+        value: name,
+        child: Text(name),
+      )),
+    ];
+    return Wrap(
+//      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if (widget.text != null)
+          Text('${widget.text} : '),
+
+        DropdownButtonFormField<String>(
+          onSaved: widget.onSaved,
+            value: selectedItem,
+            onChanged: (item){
+              setState(() {
+                selectedItem=item;
+              });
+            },
+            items: dropItems),
+
+      ],
+    );
+  }
+}
